@@ -91,6 +91,9 @@ _The software is provided as is. It might work as expected - or not. Use at your
 
 ## Useful tools
 
+* [Jest Cheat Sheets](https://devhints.io/jest)
+* [Cheat Sheets](https://devhints.io/)
+
 * [free icons @ icons8](https://icons8.com/)
 * [free  icons @ fontawesome](https://fontawesome.com/)
 ---
