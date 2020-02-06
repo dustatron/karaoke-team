@@ -112,6 +112,8 @@ _The software is provided as is. It might work as expected - or not. Use at your
 ---
 * [CSS Dropshadow Generator](https://cssgenerator.org/box-shadow-css-generator.html)
 
+* [git worktree](http://sangsoonam.github.io/2019/02/08/using-git-worktree-to-deploy-github-pages.html) 
+
 ### License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
