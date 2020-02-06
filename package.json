@@ -8,9 +8,7 @@
     "start": "npm run build & webpack-dev-server --open --mode development",
     "lint": "eslint src/*.js",
     "test": "jest",
-    "debug": "node --inspect node_modules/.bin/jest --runInBand",
-    "deploy": "gh-pages-deploy",
-    "clean-source": "rimraf README.md src webroot package.json"
+    "debug": "node --inspect node_modules/.bin/jest --runInBand"
   },
   "keywords": [],
   "author": "",
@@ -22,7 +20,6 @@
     "css-loader": "^3.2.0",
     "eslint": "^6.3.0",
     "eslint-loader": "^3.0.0",
-    "gh-pages-deploy": "^0.5.1",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^24.9.0",
     "node-sass": "^4.13.1",
