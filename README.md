@@ -52,11 +52,11 @@ npm run start
 
 7. edit files in '/src' to make changes to the project.
 
-8. remove .git to get rid of this projects commit history
+8. remove .git delete this projects commit history
 ```sh
 rm -rf .git
 ```
-9. start git your new git repository 
+9. start your new git repository 
 ```sh
 git init
 ```
