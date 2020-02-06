@@ -1,0 +1,15 @@
+@import '~bootstrap';
+
+@import "abstracts/functions";
+@import "abstracts/mixins";
+@import "abstracts/variables";
+
+@import "base/animations";
+@import "base/base";
+@import "base/typography";
+@import "base/utilities";
+
+@import "layout/header";
+@import "layout/_footer";
+
+@import "pages/home";
