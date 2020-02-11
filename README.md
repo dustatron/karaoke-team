@@ -88,6 +88,23 @@ _The software is provided as is. It might work as expected - or not. Use at your
 * [Node.js](https://nodejs.org/en/)
 * [Uglifyjs](https://www.uglifyjs.net/)
 * [Jest](https://jestjs.io/)
+* [dotenv](#)
+
+## Environmental Variables
+
+save a file name '.env'
+store  in the file 
+```sh
+API_KEY = YOUR UNIQUE API KEY GOES HERE
+OTHER_API_KEY = OTHER UNIQUE API KEY GOES HERE
+```
+use 'process.env.API_KEY'.
+
+Example:
+
+```javascript
+const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.API_KEY}`
+```
 
 ## Useful tools
 
