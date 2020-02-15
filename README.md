@@ -13,8 +13,8 @@ This app will allow a group of friends create a Youtube karaoke playlist in real
 
 _Make sure you have [git version control](https://git-scm.com/downloads) installed on your computer._
 
-1. find the green 'Clone or Download' button and copy the link
-2. open terminal and type...
+1. Find the green 'Clone or Download' button and copy the link
+2. Open terminal and type...
 
 **Windows**
 ```sh 
@@ -26,36 +26,49 @@ cd desktop
  cd ~/Desktop
  ```
 
- 3. in terminal type '_git clone {link to repository}_ '
+ 3. In terminal, clone the project by typing:
 
 ```sh
-git clone Link-Here
+git clone https://github.com/dustatron/recipe-wizard.git
 ```
 
-4. navigate to the new folder that was created on your desk
+4. Navigate to the new folder that was created on your desk:
 ```sh
-cd folder name
+cd recipe-wizard
 ```
 
-5. run npm install
+5. In terminal, type:
 ```sh
 npm install
 ```
-6. run development server
+6. Navigate to [Google Firebase](https://firebase.google.com/docs/web/setup?authuser=0).  Create new credentials for your project.
+
+7. In terminal, use firebase command line to login with your Google account credentials by typing 
 ```sh
-npm run start
+firebase login
 ```
 
-7. edit files in '/src' to make changes to the project.
+8. Create a new Recipe Search API key and ID at [Edamam](https://developer.edamam.com/edamam-recipe-api).
 
-8. remove .git delete this projects commit history
+9. In the root directory of your cloned folder, type 
 ```sh
-rm -rf .git
+touch .env
 ```
-9. start your new git repository 
+
+10. In your text editor, open the .env file and add
 ```sh
-git init
+API_KEY = {your key here}
+API_ID = {your ID here}
 ```
+11. In the command line, start program with
+```sh
+npm run now
+```
+12. In the command line, start the server by running
+```sh
+firebase serve
+```
+13. Navigate to http://localhost:5000/ in your browser to see the project.
 
 
 
@@ -64,8 +77,12 @@ git init
 
 Behavoir | Input | Output
 :---------|:------:|:------:
-|1 - The program will take in a simple input and return the input | 'hello' | 'hello' |
-
+| The program will let a user create a party room or join an existing room from their phone or computer| start a room or join a room | user enters room |
+| The program will let the user who created a room to give access to others to join their room | a key and room number is created to share | invited users join room |
+| The program will let users in a room add songs to a playlist from a youtube search via their own device | user searches "Low Rider" finds & adds "Low Rider" to the playlist  | "Low Rider" is added to playlist |
+| The program will play videos in the playlist on a central screen | queued video plays  | video plays and user sings to their song |
+| The program will let users continue to add songs/videos to the end of playlist as long as room is open | user adds "freebird" to playlist | playlist is updated to include "freebird" |
+| The program will live update the playlist as users add songs/videos to it and display the updated playlist on their personal device |"freebird" added to playlist | playlist display now includes "freebird"|
 
 ## Support 
 
