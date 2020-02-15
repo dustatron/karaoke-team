@@ -22,8 +22,11 @@ if (!firebase.apps.length) {
   // Initialize the FirebaseUI Widget using Firebase.
 }
 
-// let db = firebase.firestore();
-let ui = new firebaseui.auth.AuthUI(firebase.auth());
+// setting ref to database
+let db = firebase.firestore();
+let dbTest = db.collection("test");
+// firebase Auth
+let loginUI = new firebaseui.auth.AuthUI(firebase.auth());
 
 $(document).ready(function() {
   let userID;
@@ -34,10 +37,10 @@ $(document).ready(function() {
       userID = firebase.auth().currentUser.uid;
       $(".login").hide();
       $(".site").show();
-      console.log(userID);
+      console.log("userID", userID);
     } else {
       $(".site").hide();
-      ui.start("#firebaseui-auth-container", {
+      loginUI.start("#firebaseui-auth-container", {
         signInSuccessUrl: "#",
         signInOptions: [
           // List of OAuth providers supported.
@@ -58,7 +61,31 @@ $(document).ready(function() {
     let input1 = $("#input-1").val();
     let input2 = $("#input-2").val();
 
-    //print to DOM
-    $(".output").html(input1 + " " + input2);
+    const testObj = {
+      input1: input1,
+      input2: input2
+    };
+
+    //write to database
+    dbTest
+      .add(testObj)
+      .then(function(docRef) {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+        console.error("Error adding document: ", error);
+      });
+  }); //end Document ready
+
+  //print to DOM from database
+  dbTest.onSnapshot((querySnapshot) => {
+    let printString = "";
+    querySnapshot.forEach((item) => {
+      printString += `<div class="card">
+        <div class="text-center" >Doc ID: ${item.id} </div> 
+        <div class="text-center" >${item.data().input1} | ${item.data().input2} </div> 
+      </div>`;
+    });
+    $(".output").html(printString);
   });
 });

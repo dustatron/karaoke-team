@@ -1,17 +1,13 @@
-# _Webpack Boilerplate_
+# _Karaoke Party Team_
 
 #### _This site comes with the all basic parts to get you started making a single page website with webpack fast. | Feb 5th. 2020_
 
-#### By _** Dusty McCord**_
-[link to demo site coming](https://dustatron.github.io/webpack-boilerplate/)
+#### By _** Dusty McCord & Eric Settels & K. Wicz  & Josh Hellman & Todd Walraven **_
+[link to demo](https://karaoke-team.web.app/)
 
 ## Description
 
-There is a pre-built two input form with a submit button. There is also a simple jQuery function that will console.log when the submit button is clicked.
-
-The .gitignore file is a template for mac osx but a link is provided to get a template for any operating system. 
-
-[create a .gitignore template for your os here](https://www.gitignore.io/)
+This app will allow a group of friends create a Youtube karaoke playlist in realtime and then play that list from a computer for maxium karaoke party enjoyment. 
 
 ## Setup/Installation Requirements
 

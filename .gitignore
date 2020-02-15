@@ -4,6 +4,8 @@ node_modules/
 dist/
 .env
 
+firebase-debug.log
+
 ### OSX ###
 # General
 .DS_Store
