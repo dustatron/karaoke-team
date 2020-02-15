@@ -19,7 +19,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new Dotenv(),
     new HtmlWebpackPlugin({
-      title: "webpack",
+      title: "karaoke-team",
       template: "./src/index.html",
       inject: "body"
     })

@@ -1,9 +1,10 @@
 {
-  "name": "webpack",
+  "name": "karaoke-team",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "now": "webpack --watch --mode=development",
     "build": "webpack --mode development",
     "start": "npm run build & webpack-dev-server --open --mode development",
     "lint": "eslint src/*.js",
@@ -21,6 +22,7 @@
     "dotenv-webpack": "^1.7.0",
     "eslint": "^6.3.0",
     "eslint-loader": "^3.0.0",
+    "firebase-tools": "^7.13.0",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^24.9.0",
     "node-sass": "^4.13.1",
@@ -33,6 +35,8 @@
   },
   "dependencies": {
     "bootstrap": "^4.4.1",
+    "firebase": "^7.8.2",
+    "firebaseui": "^4.4.0",
     "jquery": "^3.4.1",
     "popper.js": "^1.16.1"
   }
