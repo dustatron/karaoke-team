@@ -4,6 +4,7 @@
 
 #### By _** Dusty McCord & Eric Settels & K. Wicz  & Josh Hellman & Todd Walraven **_
 [link to demo](https://karaoke-team.web.app/)
+[firebase cheatsheet](/firbase-cheatsheet.md)
 
 ## Description
 
