@@ -7,28 +7,32 @@
 
 <body>
   <div class="container site">
-    <!-- input form  -->
-    <div class="row">
-      <div class="col-md-6 offset-md-3 box-decore">
-        <h1 class="text-center">Karaoke Team</h1>
+  
+
+    <div class="row playslit">
+
+      <div class="playlist-header">
+        <h1>Room Name</h1>
         <form>
-          <div class="form-group">
-            <label for="input-1">Input 1</label>
-            <input type="text" class="form-control" id="input-1" aria-describedby="input">
-            <small id="input1-Help" class="form-text text-muted">You can put your thoughts here.</small>
-          </div>
-          <div class="form-group">
-            <label for="input-2">Input 2</label>
-            <input type="text" class="form-control" id="input-2">
-          </div>
-          <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="checkbox-1">
-            <label class="form-check-label" for="checkbox-1">click it</label>
-          </div>
-          <button id="submitBtn" type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+          <div class="input-group mb-3">
+              <input id="ytSearchInput" type="text" class="form-control" placeholder="Search for your Song" aria-label="Recipient's username" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button id="search" class="btn btn-outline-secondary" type="submit">Search</button>
+              </div>
+            </div>
         </form>
       </div>
-    </div>
+
+      <div class="search-results">
+
+      </div>
+
+      <div class="playlist-render">
+
+      </div>
+
+
+    </div> <!-- End Playlist -->
 
     <!-- output box  -->
     <div class="row">

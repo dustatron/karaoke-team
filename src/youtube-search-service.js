@@ -6,7 +6,7 @@ export class YtSearch {
                 console.log(`bad response`,response.status)
             }
             let makeJson = await response.json();
-            // console.log(makeJson);
+            console.log(makeJson);
             return makeJson
         } catch (error) {
             console.log(error);

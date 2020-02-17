@@ -6,6 +6,8 @@ import * as firebaseui from "firebaseui";
 import "./scss/main.scss";
 import $ from "jquery";
 import { YtSearch } from "./youtube-search-service";
+import { Render } from "./render-search";
+
 const firebaseConfig = {
   apiKey: "AIzaSyC-YzJrwqc7dqtxy1dGAMvAvymJ-ZF1F3M",
   authDomain: "karaoke-team.firebaseapp.com",
@@ -58,36 +60,32 @@ $(document).ready(function() {
 
   //get form submit button
   $("form").submit((event) => {
+    let render = new Render();
     event.preventDefault();
-    let input1 = $("#input-1").val();
-    let input2 = $("#input-2").val();
-
-    const testObj = {
-      input1: input1,
-      input2: input2
-    };
+    let ytSearchInput = $("#ytSearchInput").val();
 
     
     (async ()=> {
-      const response = await ytSearch.getSongByTitle(input1);
+      const response = await ytSearch.getSongByTitle(ytSearchInput);
       console.log(response);
-      if (response.items.length > 0) {
-        response.items.forEach(function(item) {
-          
-          $(".output").html(item.snippet.title);
-        })
+      if( response.items.length > 0 ){
+        render.ytSearch(response);
+      } else {
+        $(".search-results").html('no results');
       }
-    })
+      
+      
+    })();
 
     //write to database
-    dbTest
-      .add(testObj)
-      .then(function(docRef) {
-        console.log("Document written with ID: ", docRef.id);
-      })
-      .catch(function(error) {
-        console.error("Error adding document: ", error);
-      });
+    // dbTest
+    //   .add(testObj)
+    //   .then(function(docRef) {
+    //     console.log("Document written with ID: ", docRef.id);
+    //   })
+    //   .catch(function(error) {
+    //     console.error("Error adding document: ", error);
+    //   });
   }); //end Document ready
 
   //print to DOM from database
