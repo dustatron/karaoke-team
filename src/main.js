@@ -5,7 +5,7 @@ import * as firebaseui from "firebaseui";
 
 import "./scss/main.scss";
 import $ from "jquery";
-
+import { YtSearch } from "./youtube-search-service";
 const firebaseConfig = {
   apiKey: "AIzaSyC-YzJrwqc7dqtxy1dGAMvAvymJ-ZF1F3M",
   authDomain: "karaoke-team.firebaseapp.com",
@@ -27,6 +27,7 @@ let db = firebase.firestore();
 let dbTest = db.collection("test");
 // firebase Auth
 let loginUI = new firebaseui.auth.AuthUI(firebase.auth());
+let ytSearch = new YtSearch();
 
 $(document).ready(function() {
   let userID;
@@ -66,6 +67,18 @@ $(document).ready(function() {
       input2: input2
     };
 
+    
+    (async ()=> {
+      const response = await ytSearch.getSongByTitle(input1);
+      console.log(response);
+      if (response.items.length > 0) {
+        response.items.forEach(function(item) {
+          
+          $(".output").html(item.snippet.title);
+        })
+      }
+    })
+
     //write to database
     dbTest
       .add(testObj)
@@ -78,14 +91,14 @@ $(document).ready(function() {
   }); //end Document ready
 
   //print to DOM from database
-  dbTest.onSnapshot((querySnapshot) => {
-    let printString = "";
-    querySnapshot.forEach((item) => {
-      printString += `<div class="card">
-        <div class="text-center" >Doc ID: ${item.id} </div> 
-        <div class="text-center" >${item.data().input1} | ${item.data().input2} </div> 
-      </div>`;
-    });
-    $(".output").html(printString);
-  });
+  // dbTest.onSnapshot((querySnapshot) => {
+  //   let printString = "";
+  //   querySnapshot.forEach((item) => {
+  //     printString += `<div class="card">
+  //       <div class="text-center" >Doc ID: ${item.id} </div> 
+  //       <div class="text-center" >${item.data().input1} | ${item.data().input2} </div> 
+  //     </div>`;
+  //   });
+  //   $(".output").html(printString);
+  // });
 });
