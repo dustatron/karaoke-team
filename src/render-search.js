@@ -4,14 +4,17 @@ export class Render {
 
     ytSearch(results){
         let printString = "";
-        results.items.forEach((video)=>{
+        let {items} = results;
+        console.log("this one dumy;",items);
+               items.forEach((video, index)=>{
             printString += `<div class="ytSong"> 
             <div class="ytSong--title"> ${video.snippet.title} </div>
             <div class="ytSong--video">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/${video.id.videoId}" frameborder="0" allow="accelerometer; allowfullscreen></iframe></div>
+                <iframe id="player" type="text/html" width="640" height="390" src="http://www.youtube.com/embed/${video.id.videoId}" frameborder="0"></iframe>
+            </div>
             <div class="ytSong--info">
                 <div class="ytSong--description">${video.snippet.description}</div>
-                <button class="btn btn-lg btn-info" type="button">Add Song<btton>
+                <button id="${index}" class="search-btn btn btn-lg btn-info" type="button">Add Song</button>
             </div>
             </div>`
         });

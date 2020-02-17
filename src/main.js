@@ -32,6 +32,7 @@ let loginUI = new firebaseui.auth.AuthUI(firebase.auth());
 let ytSearch = new YtSearch();
 
 $(document).ready(function() {
+  let searchObj = {};
   let userID;
 
   //Login condition
@@ -67,16 +68,14 @@ $(document).ready(function() {
     
     (async ()=> {
       const response = await ytSearch.getSongByTitle(ytSearchInput);
-      console.log(response);
+      searchObj = response;
+      console.log(searchObj);
       if( response.items.length > 0 ){
-        render.ytSearch(response);
+        render.ytSearch(searchObj); //Print to Dom
       } else {
         $(".search-results").html('no results');
       }
-      
-      
     })();
-
     //write to database
     // dbTest
     //   .add(testObj)
@@ -86,7 +85,11 @@ $(document).ready(function() {
     //   .catch(function(error) {
     //     console.error("Error adding document: ", error);
     //   });
-  }); //end Document ready
+  }); //end search submit
+
+$('.search-results').on('click', 'button', function(){
+  console.log(this.id);
+});
 
   //print to DOM from database
   // dbTest.onSnapshot((querySnapshot) => {
@@ -99,4 +102,4 @@ $(document).ready(function() {
   //   });
   //   $(".output").html(printString);
   // });
-});
+});//end Document ready
