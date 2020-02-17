@@ -6,7 +6,7 @@ import * as firebaseui from "firebaseui";
 import "./scss/main.scss";
 import $ from "jquery";
 import { YtSearch } from "./youtube-search-service";
-import { Render } from "./render-search";
+import { Render } from "./render";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC-YzJrwqc7dqtxy1dGAMvAvymJ-ZF1F3M",
@@ -123,39 +123,12 @@ $(document).ready(function () {
     }
 
     pushSong();
-
-
-    // dbTestRoom.update({order: });//increment order number
-
-    // let tempObj = {
-    //   user: 'user',
-    //   order: 'hello',
-    //   videoLink: dataObj.id.videoId,
-    //   videoName: dataObj.snippet.title,
-    //   createdAt: new Date().getTime(),
-    //   img: dataObj.snippet.thumbnails.default.url
-    // }
-
-    // console.log('tempObj', tempObj);
-    // dbTestRoom.collection('playlist').add(tempObj).then(function(docRef) {
-    //       console.log("Document written with ID: ", docRef.id);
-    //     })
-    //     .catch(function(error) {
-    //       console.error("Error adding document: ", error);
-    //     });
-
-    //     $('.search-results').slideUp();
   }); //-------------------  Click event listener
 
   // print to DOM from database
   dbTestRoom.collection("playlist").orderBy("order").onSnapshot((querySnapshot) => {
     let printString = "";
-    querySnapshot.forEach((item) => {
-      printString += `<div class="card">
-        <div class="text-center" >Doc ID: ${item.videoName} </div> 
-        <div class="text-center" ><img src="${item.data().img}"> | ${item.data().createdAt} </div> 
-      </div>`;
-    });
-    $(".output").html(printString);
+    let render = new Render();
+    render.playlist(querySnapshot);
   });
 });//end Document ready

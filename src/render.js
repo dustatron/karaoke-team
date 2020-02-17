@@ -19,4 +19,21 @@ export class Render {
         });
         $(".search-results").html(printString);
     }
+
+    playlist(results){
+        let printString = "";
+        results.forEach((item) => {
+            printString += `<div id="${item.data().videoLink}" class="playlist-box">
+                <div class ="playlist--title"> ${item.data().videoName} </div>
+                <div class="playlist--order"> ${item.data().order} </div>
+                <div class="playlist--user"> ${item.data().user} </div>
+                <div class="playlist--buttons">
+                    <button class="btn btn-danger delet" >delete song</button>
+                    <button class="btn btn-success moveUp"><i class="fas fa-arrow-up"></i></button>
+                    <button class="btn btn-success moveDown"><i class="fas fa-arrow-down"></i></button>
+                </div>
+            </div>`
+        });
+        $(".playlist-render").html(printString);
+    }
 }
