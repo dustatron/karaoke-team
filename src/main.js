@@ -135,4 +135,38 @@ $(document).ready(function () {
   $('.playlist-render').on('click', '.delete', function(){
     dbTestRoom.collection("playlist").doc(this.name).delete();
   });
+
+  $('.playlist-render').on('click', '.moveUp', function(){
+   let aboveObj = this.value - 1;
+   let that = this;
+    if(parseInt(this.value) > 1){
+      (async () => {
+        await dbTestRoom.collection("playlist").where("order", "==", aboveObj).get().then(function(docs) {
+          docs.forEach(function(doc){
+            dbTestRoom.collection("playlist").doc(doc.id).update({ order: parseInt(that.value) });
+            console.log("up", doc.id);
+          });
+        });
+   
+        dbTestRoom.collection("playlist").doc(this.name).update({order: parseInt(this.value) - 1});
+      })();
+    }
+
+  });
+
+  $('.playlist-render').on('click', '.moveDown', function(){
+    let belowObj = parseInt(this.value) + 1;
+    let that = this;
+ 
+    (async () => {
+      await dbTestRoom.collection("playlist").where("order", "==", belowObj).get().then(function(docs) {
+        docs.forEach(function(doc){
+          dbTestRoom.collection("playlist").doc(doc.id).update({ order: parseInt(that.value) });
+          console.log("down", doc.id);
+        });
+      });
+ 
+      dbTestRoom.collection("playlist").doc(this.name).update({order: parseInt(this.value) + 1});
+    })();
+  });
 });//end Document ready
