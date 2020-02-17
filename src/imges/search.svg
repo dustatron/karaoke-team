@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+	    <defs>
+
+      <linearGradient id="Gradient2" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0%" stop-color="#8046E5"/>
+        <stop offset="50%" stop-color="#0590ff"/>
+        <stop offset="100%" stop-color="#FD4A8D"/>
+      </linearGradient>
+      <style type="text/css"><![CDATA[
+        #rect1 { fill: url(#Gradient1); }
+        .stop1 { stop-color: #8046E5; }
+        .stop2 { stop-color: black; stop-opacity: 0; }
+        .stop3 { stop-color: #FD4A8D; }
+      ]]></style>
+  </defs>
+<g>
+	<g>
+		<path fill="url(#Gradient2)" d="M316.7,0C209.011,0,121.4,87.612,121.4,195.3c0,37.551,10.662,72.654,29.105,102.458L0,448.262L63.738,512
+			l150.504-150.504C244.047,379.938,279.149,390.6,316.7,390.6c107.689,0,195.3-87.612,195.3-195.3S424.389,0,316.7,0z
+			 M63.738,469.509l-21.246-21.246l125.964-125.964c6.53,7.612,13.634,14.716,21.246,21.246L63.738,469.509z M316.7,360.554
+			c-91.121,0-165.254-74.133-165.254-165.254S225.579,30.046,316.7,30.046S481.954,104.179,481.954,195.3
+			S407.822,360.554,316.7,360.554z"/>
+	</g>
+</g>
+
+</svg>

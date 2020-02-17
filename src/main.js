@@ -81,9 +81,9 @@ $(document).ready(function() {
   dbTest.onSnapshot((querySnapshot) => {
     let printString = "";
     querySnapshot.forEach((item) => {
-      printString += `<div class="card">
-        <div class="text-center" >Doc ID: ${item.id} </div> 
-        <div class="text-center" >${item.data().input1} | ${item.data().input2} </div> 
+      printString += `<div class="card card-cont ">
+        <div class="text-center card-id" >Doc ID: ${item.id} </div> 
+        <div class="text-center card-data" >${item.data().input1} | ${item.data().input2} </div> 
       </div>`;
     });
     $(".output").html(printString);

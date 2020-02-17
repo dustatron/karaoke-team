@@ -2,47 +2,81 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel='icon' href="./imges/radio.png">
   <title>Karaoke Team</title>
 </head>
 
 <body>
-  <div class="container site">
+  <div  class="container site">
     <!-- input form  -->
-    <div class="row">
+    <div style='display: none'class="row">
       <div class="col-md-6 offset-md-3 box-decore">
-        <h1 class="text-center">Karaoke Team</h1>
+        <h3 class="text-center">Your New Room</h3>
         <form>
           <div class="form-group">
-            <label for="input-1">Input 1</label>
+            <label for="input-1">Name your Room</label>
             <input type="text" class="form-control" id="input-1" aria-describedby="input">
-            <small id="input1-Help" class="form-text text-muted">You can put your thoughts here.</small>
+            
           </div>
           <div class="form-group">
-            <label for="input-2">Input 2</label>
+            <label for="input-2">Descrption</label>
             <input type="text" class="form-control" id="input-2">
+            <small id="input1-Help" class="form-text text-muted">Describe the Party</small>
           </div>
-          <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="checkbox-1">
-            <label class="form-check-label" for="checkbox-1">click it</label>
-          </div>
-          <button id="submitBtn" type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+          <div class="module-border-wrap">
+          <button id="submitBtn" class='module hvr-sweep-to-right'  type="submit">Get Singing</button>
+        </div>
         </form>
       </div>
     </div>
+ <!-- song search -->
+    <div class="playlist-header">
+      <form class="search-form">
+        <div class="input-wrap">
+        <input type="text" id="ytSearchInput" placeholder="find song">
+        
+      <button class="search-button"><img src="./imges/search.svg" alt="" srcset=""></button>
+    </div>  
+    </form>
+    </div>
+
+
+    <div class="search-results">
+      <div class="yt-song">
+        <h4 class="yt-song-title">Chance The Rapper - Cocoa Butter Kisses (feat. Vic Mensa and Twista)</h2>
+        <iframe src="https://www.youtube.com/watch?v=TErySTMbFlk" frameborder="0" class="yt-song-video"></iframe>
+        <p class="yt-song-description">Chance The Rapper - Cocoa Butter Kisses (feat. Vic Mensa and Twista) (Prod. By Cam for J.U.S.T.I.C.E League & Peter Cottontale)
+            https://twitter.com/chancetherapper</p>
+          <button class="yt-song-button">
+            Add song
+          </button>
+      </div>
+    </div>
+
+
 
     <!-- output box  -->
-    <div class="row">
+    <div  style="display: none" class="row">
       <div class="col-md-6 offset-md-3">
         <div class="output">Output here</div>
       </div>
     </div>
     <!-- login view -->
   </div>
-  <div class="row login">
-    <div class="col-md-6 offset-md-3">
+  <div class="login">
+    <h1>Karaokey</h1>
+    <img  class='logo' src="./imges/mic.svg" alt="microphone">
+    <p>Start singing</p>
+    <div>
       <div id="firebaseui-auth-container"></div>
     </div>
   </div>
 </body>
-
+<footer style="display: none">
+    Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+  Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+</footer>
 </html>

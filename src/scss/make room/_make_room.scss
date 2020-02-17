@@ -1,0 +1,78 @@
+h3{
+    text-align: center;
+    font-size: 5rem;
+    font-family: 'Raleway', sans-serif;
+    color: #272526 ;
+    margin-bottom: 5rem;
+    background: -webkit-linear-gradient(-86deg, #8046E5 0%, #0590ff 55%, #FD4A8D 95%);
+    -webkit-background-clip: text;
+    -webkit-text-stroke: 4px transparent;
+}
+
+// #submitBtn{
+//     background: -webkit-linear-gradient(-86deg, #8046E5 0%, #0590ff 55%, #FD4A8D 95%);
+//     color: #272526 ;
+//     border: none;
+//     border-radius: .5rem;
+//     height: 3rem;
+//     width: 100%;
+//     font-weight: 999;
+//     font-size: 1.5rem
+// }
+.module-border-wrap {
+    border-radius: .5rem;
+    width: 100%;
+    position: relative;
+    background: -webkit-linear-gradient(-86deg, #8046E5 0%, #0590ff 55%, #FD4A8D 95%);
+    padding: 3px;
+  }
+  
+  .module {
+    border-radius: .5rem;
+    border: none;
+    height: 3rem;
+    width: 100%;
+    background: #272526;
+    color: #0590ff;
+    transition: all linear 2s;
+  }
+
+  .hvr-sweep-to-right {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    position: relative;
+    -webkit-transition-property: color;
+    transition-property: color;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+  }
+  .hvr-sweep-to-right:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: -webkit-linear-gradient(-86deg, #8046E5 0%, #0590ff 55%, #FD4A8D 95%);
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transform-origin: 0 50%;
+    transform-origin: 0 50%;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+  }
+  .hvr-sweep-to-right:hover, .hvr-sweep-to-right:focus, .hvr-sweep-to-right:active {
+    color: white;
+  }
+  .hvr-sweep-to-right:hover:before, .hvr-sweep-to-right:focus:before, .hvr-sweep-to-right:active:before {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+  }
