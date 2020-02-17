@@ -5,7 +5,6 @@ export class Render {
     ytSearch(results){
         let printString = "";
         let {items} = results;
-        console.log("this one dumy;",items);
                items.forEach((video, index)=>{
             printString += `<div class="ytSong"> 
             <div class="ytSong--title"> ${video.snippet.title} </div>
