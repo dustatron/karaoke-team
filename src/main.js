@@ -131,4 +131,8 @@ $(document).ready(function () {
     let render = new Render();
     render.playlist(querySnapshot);
   });
+
+  $('.playlist-render').on('click', '.delete', function(){
+    dbTestRoom.collection("playlist").doc(this.name).delete();
+  });
 });//end Document ready
