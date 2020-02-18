@@ -29,7 +29,8 @@ if (!firebase.apps.length) {
 const db = firebase.firestore();
 // const dbTest = db.collection("test");
 const dbTestRoom = db.collection("rooms").doc("testroom");
-const increment = firebase.firestore.FieldValue.increment(+1);
+const dbRooms = db.collection("rooms");
+
 
 // firebase Auth
 let loginUI = new firebaseui.auth.AuthUI(firebase.auth());
@@ -63,8 +64,24 @@ $(document).ready(function () {
     }
   });
 
+  $("#room-name-btn").click(function (event) {
+    event.preventDefault();
+    console.log('click');
+    console.log(firebase.auth().currentUser);
+    let roomObj = {
+      userId: firebase.auth().currentUser.uid,
+      userName: firebase.auth().currentUser.displayName,
+      userPhoto: firebase.auth().currentUser.photoURL,
+      roomName: $("input#room-name").val(),
+      playing: false,
+      order: 1,
+      currentSong: 0
+    };
+    dbRooms.add(roomObj);
+  })
+
   //get form submit button
-  $("form").submit((event) => {
+  $(".search-form").submit((event) => {
     event.preventDefault();
     let render = new Render();
     let ytSearchInput = $("#ytSearchInput").val();
@@ -74,7 +91,7 @@ $(document).ready(function () {
     (async () => {
       const response = await ytSearch.getSongByTitle(ytSearchInput);
       searchObj = response;
-      console.log('seartch object',searchObj);
+      console.log('seartch object', searchObj);
       if (response.items.length > 0) {
         render.ytSearch(searchObj); //Print to Dom
       } else {
@@ -120,7 +137,7 @@ $(document).ready(function () {
 
       $('.search-results').slideUp();
 
-      dbTestRoom.update({order: currentOrderNum += 1 });
+      dbTestRoom.update({ order: currentOrderNum += 1 });
     }
 
     pushSong();
@@ -133,41 +150,41 @@ $(document).ready(function () {
     render.playlist(querySnapshot);
   });
 
-  $('.playlist-render').on('click', '.delete', function(){
+  $('.playlist-render').on('click', '.delete', function () {
     dbTestRoom.collection("playlist").doc(this.name).delete();
   });
 
-  $('.playlist-render').on('click', '.moveUp', function(){
-   let aboveObj = this.value - 1;
-   let that = this;
-    if(parseInt(this.value) > 1){
+  $('.playlist-render').on('click', '.moveUp', function () {
+    let aboveObj = this.value - 1;
+    let that = this;
+    if (parseInt(this.value) > 1) {
       (async () => {
-        await dbTestRoom.collection("playlist").where("order", "==", aboveObj).get().then(function(docs) {
-          docs.forEach(function(doc){
+        await dbTestRoom.collection("playlist").where("order", "==", aboveObj).get().then(function (docs) {
+          docs.forEach(function (doc) {
             dbTestRoom.collection("playlist").doc(doc.id).update({ order: parseInt(that.value) });
             console.log("up", doc.id);
           });
         });
-   
-        dbTestRoom.collection("playlist").doc(this.name).update({order: parseInt(this.value) - 1});
+
+        dbTestRoom.collection("playlist").doc(this.name).update({ order: parseInt(this.value) - 1 });
       })();
     }
 
   });
 
-  $('.playlist-render').on('click', '.moveDown', function(){
+  $('.playlist-render').on('click', '.moveDown', function () {
     let belowObj = parseInt(this.value) + 1;
     let that = this;
- 
+
     (async () => {
-      await dbTestRoom.collection("playlist").where("order", "==", belowObj).get().then(function(docs) {
-        docs.forEach(function(doc){
+      await dbTestRoom.collection("playlist").where("order", "==", belowObj).get().then(function (docs) {
+        docs.forEach(function (doc) {
           dbTestRoom.collection("playlist").doc(doc.id).update({ order: parseInt(that.value) });
           console.log("down", doc.id);
         });
       });
- 
-      dbTestRoom.collection("playlist").doc(this.name).update({order: parseInt(this.value) + 1});
+
+      dbTestRoom.collection("playlist").doc(this.name).update({ order: parseInt(this.value) + 1 });
     })();
   });
 
@@ -179,29 +196,29 @@ $(document).ready(function () {
   var firstScriptTag = document.getElementsByTagName('script')[0];
   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   console.log("tag: ", tag);
-  
+
 
   // Replace the 'ytplayer' element with an <iframe> and
   // YouTube player after the API code downloads.
   let iframeService = new IframeService();
 
   iframeService.onYouTubePlayerAPIReady();
-  
+
   // iframeService.onPlayerReady();
   // iframeService.onPlayerStateChange();
   // iframeService.stopVideo();
 
-  $("#play").click(function(){
+  $("#play").click(function () {
     iframeService.playVideo()
   });
-  $("#stop").click(function(){
+  $("#stop").click(function () {
     iframeService.stopVideo()
   });
-  $("#pause").click(function(){
+  $("#pause").click(function () {
     iframeService.pauseVideo()
   });
-  $("#next").click(function(){
+  $("#next").click(function () {
     iframeService.nextVideo()
   });
-  
+
 });
