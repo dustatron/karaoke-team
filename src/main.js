@@ -48,7 +48,8 @@ $(document).ready(function () {
   render.roomListListen();
 
 
-  //Login condition
+  ////////////////////////////////////////////////////////////////
+  //////////////////////   Login Auth  ////////////////////////////
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       let userID = firebase.auth().currentUser.uid;
@@ -72,7 +73,10 @@ $(document).ready(function () {
     }
   });
 
-  // new room listener
+  /////////////////////////////////////////////////////////////////
+  //////////////////////   Listeners  ////////////////////////////
+
+  // Add new room button
   $("#room-name-btn").click(function (event) {
     event.preventDefault();
     console.log('click');
@@ -109,10 +113,15 @@ $(document).ready(function () {
     })();
   }); //end search submit
 
+  //Delete room button
   $('.rooms--list').on('click', '.show-delete', function () {
     dbRooms.doc(this.value).delete();
   });
 
+  //////////////////////////////////////////////////////////
+  ////////////////// Playlist  ////////////////////////////
+
+  //---------Search button
   $('.search-results').on('click', 'button', function () {
     let that = this;
     async function pushSong() {
@@ -154,30 +163,14 @@ $(document).ready(function () {
     }
 
     pushSong();
-  }); //-------------------  Click event listener
+  }); 
 
-  // print to DOM from database
-  dbTestRoom.collection("playlist").orderBy("order").onSnapshot((querySnapshot) => {
-    let printString = "";
-    render.playlist(querySnapshot);
-  });
-  //print room list
-  function showRooms(uid) {
-    dbRooms.where("userId", "==", uid).orderBy("timeCreated").onSnapshot(function (querySnapshot) {
-      let printList = "";
-      querySnapshot.forEach(function (room) {
-        printList += `<li> ${room.data().roomName} </li>`
-      });
-      render.roomList(querySnapshot);
-
-      // $(".rooms--list").html(printList);
-    });
-  }
-
+  //---Playlist delete song
   $('.playlist-render').on('click', '.delete', function () {
     dbTestRoom.collection("playlist").doc(this.name).delete();
   });
 
+  //---Playlist move song up
   $('.playlist-render').on('click', '.moveUp', function () {
     let aboveObj = this.value - 1;
     let that = this;
@@ -196,6 +189,7 @@ $(document).ready(function () {
 
   });
 
+  //---Playlist move song down
   $('.playlist-render').on('click', '.moveDown', function () {
     let belowObj = parseInt(this.value) + 1;
     let that = this;
@@ -211,8 +205,35 @@ $(document).ready(function () {
       dbTestRoom.collection("playlist").doc(this.name).update({ order: parseInt(this.value) + 1 });
     })();
   });
+  
+  
+  
+  
+  //-------------------  DOM PRINTS ------------------\\
 
-  console.log("dom loaded");
+  // print Playlist
+  dbTestRoom.collection("playlist").orderBy("order").onSnapshot((querySnapshot) => {
+    let printString = "";
+    render.playlist(querySnapshot);
+  });
+
+  // print room list
+  function showRooms(uid) {
+    dbRooms.where("userId", "==", uid).orderBy("timeCreated").onSnapshot(function (querySnapshot) {
+      let printList = "";
+      querySnapshot.forEach(function (room) {
+        printList += `<li> ${room.data().roomName} </li>`
+      });
+      render.roomList(querySnapshot);
+
+      // $(".rooms--list").html(printList);
+    });
+  }
+
+
+
+  ///////////////////////////////////////////////////////////////
+  ////////////////// Video Players  ////////////////////////////
 
   // Load the IFrame Player API code asynchronously.
   var tag = document.createElement('script');
