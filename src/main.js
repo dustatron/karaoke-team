@@ -7,7 +7,7 @@ import "./scss/main.scss";
 import $ from "jquery";
 import { YtSearch } from "./youtube-search-service";
 import { Render } from "./render";
-import { IframeService } from "./iframe-service";
+import YouTubePlayer from 'youtube-player';
 
 const firebaseConfig = {
   apiKey: "AIzaSyC-YzJrwqc7dqtxy1dGAMvAvymJ-ZF1F3M",
@@ -245,35 +245,55 @@ $(document).ready(function () {
   ///////////////////////////////////////////////////////////////
   ////////////////// Video Players  ////////////////////////////
 
-  // Load the IFrame Player API code asynchronously.
-  var tag = document.createElement('script');
-  tag.src = "https://www.youtube.com/iframe_api";
-  var firstScriptTag = document.getElementsByTagName('script')[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-  console.log("tag: ", tag);
+  let player = YouTubePlayer('player');
+  player.loadVideoById('M7lc1UVf-VE');
 
-
-  // Replace the 'ytplayer' element with an <iframe> and
-  // YouTube player after the API code downloads.
-  let iframeService = new IframeService();
-
-  iframeService.onYouTubePlayerAPIReady();
-
-  // iframeService.onPlayerReady();
-  // iframeService.onPlayerStateChange();
-  // iframeService.stopVideo();
-
-  $("#play").click(function () {
-    iframeService.playVideo()
+  
+  $('#play').click(()=>{
+    player.playVideo();
   });
-  $("#stop").click(function () {
-    iframeService.stopVideo()
+
+  $('#stop').click(()=>{
+    player.stopVideo()
   });
-  $("#pause").click(function () {
-    iframeService.pauseVideo()
+  $('#pause').click(()=>{
+    player.pauseVideo()
   });
-  $("#next").click(function () {
-    iframeService.nextVideo()
+  $('#next').click(()=>{
+    player.loadVideoById('PbeEOdqudVA');
   });
+
+  // // Load the IFrame Player API code asynchronously.
+  // var tag = document.createElement('script');
+  // tag.src = "https://www.youtube.com/iframe_api";
+  // var firstScriptTag = document.getElementsByTagName('script')[0];
+  // firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  // console.log("tag: ", tag);
+
+
+  // // Replace the 'ytplayer' element with an <iframe> and
+  // // YouTube player after the API code downloads.
+  // let iframeService = new IframeService();
+
+  // iframeService.onYouTubePlayerAPIReady();
+
+  // // iframeService.onPlayerReady();
+  // // iframeService.onPlayerStateChange();
+  // // iframeService.stopVideo();
+
+  // $("#play").click(function () {
+  //   iframeService.playVideo()
+  // });
+  // $("#stop").click(function () {
+  //   iframeService.stopVideo()
+  // });
+  // $("#pause").click(function () {
+  //   iframeService.pauseVideo()
+  // });
+  // $("#next").click(function () {
+  //   iframeService.nextVideo()
+  // });
 
 }); //End document ready
+
+

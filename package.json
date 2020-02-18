@@ -40,6 +40,7 @@
     "firebase": "^7.8.2",
     "firebaseui": "^4.4.0",
     "jquery": "^3.4.1",
-    "popper.js": "^1.16.1"
+    "popper.js": "^1.16.1",
+    "youtube-player": "^5.5.2"
   }
 }
