@@ -2,6 +2,10 @@ import $ from "jquery";
 
 export class Render {
 
+    constructor() {
+        this.listObj = [];
+    }
+
     ytSearch(results) {
         let printString = "";
         let { items } = results;
@@ -23,6 +27,17 @@ export class Render {
     playlist(results) {
         let printString = "";
         results.forEach((item) => {
+            let { videoLink, order, user, createdAt, videoName } = item.data()
+            let videoItem = {
+                docId: item.id,
+                videoLink,
+                order,
+                user,
+                createdAt,
+                videoName
+            }
+
+            this.listObj.push(videoItem);
             printString += `<div name="${item.data().videoLink}" id="${item.id}" class="playlist-box">
                 <div class ="playlist--title"> ${item.data().videoName} </div>
                 <div class="playlist--order"> ${item.data().order} <img src="${item.data().img}"></div>

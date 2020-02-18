@@ -223,6 +223,7 @@ $(document).ready(function () {
   dbRooms.doc(currentRoom).collection("playlist").orderBy("order").onSnapshot((querySnapshot) => {
     let printString = "";
     render.playlist(querySnapshot);
+    console.log(render.listObj);
   });
 
 // }
