@@ -25,6 +25,9 @@ if (!firebase.apps.length) {
   // Initialize the FirebaseUI Widget using Firebase.
 }
 
+///////////////////////////////////////////////////////////////
+/////////////////// Load Constructors ////////////////////////
+
 // setting ref to database
 const db = firebase.firestore();
 // const dbTest = db.collection("test");
@@ -36,17 +39,19 @@ const dbRooms = db.collection("rooms");
 let loginUI = new firebaseui.auth.AuthUI(firebase.auth());
 let ytSearch = new YtSearch();
 
+////////////////////////////////////////////////////////////////
+//////////////////////   DOC READY  ////////////////////////////
 $(document).ready(function () {
   let searchObj = {};
-  let userID;
+  
 
   //Login condition
-  firebase.auth().onAuthStateChanged(function (user) {
+  firebase.auth().onAuthStateChanged((user)=>{
     if (user) {
-      userID = firebase.auth().currentUser.uid;
+      let userID = firebase.auth().currentUser.uid;
+      showRooms(userID)
       $(".login").hide();
       $(".site").show();
-      console.log("userID", userID);
     } else {
       $(".site").hide();
       loginUI.start("#firebaseui-auth-container", {
@@ -64,6 +69,7 @@ $(document).ready(function () {
     }
   });
 
+// new room listener
   $("#room-name-btn").click(function (event) {
     event.preventDefault();
     console.log('click');
@@ -75,12 +81,12 @@ $(document).ready(function () {
       roomName: $("input#room-name").val(),
       playing: false,
       order: 1,
-      currentSong: 0
+      currentSong: 0,
+      timeCreated: new Date().getTime(),
     };
     dbRooms.add(roomObj);
-  })
+  });
 
-  //get form submit button
   $(".search-form").submit((event) => {
     event.preventDefault();
     let render = new Render();
@@ -149,6 +155,17 @@ $(document).ready(function () {
     let render = new Render();
     render.playlist(querySnapshot);
   });
+  //print room list
+  function showRooms(uid) {
+    db.collection("rooms").where("userId", "==", uid).onSnapshot(function(querySnapshot) {
+      let printList = "";
+      querySnapshot.forEach(function(room) {
+        console.log("ROOM", room);
+        printList += `<li> ${room.data().roomName} </li>`
+      });
+      $(".rooms--list").html(printList);
+    });
+  }
 
   $('.playlist-render').on('click', '.delete', function () {
     dbTestRoom.collection("playlist").doc(this.name).delete();
@@ -221,4 +238,4 @@ $(document).ready(function () {
     iframeService.nextVideo()
   });
 
-});
+}); //End document ready
