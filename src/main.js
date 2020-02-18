@@ -157,10 +157,9 @@ $(document).ready(function () {
   });
   //print room list
   function showRooms(uid) {
-    db.collection("rooms").where("userId", "==", uid).onSnapshot(function(querySnapshot) {
+    dbRooms.where("userId", "==", uid).orderBy("timeCreated").onSnapshot(function(querySnapshot) {
       let printList = "";
       querySnapshot.forEach(function(room) {
-        console.log("ROOM", room);
         printList += `<li> ${room.data().roomName} </li>`
       });
       $(".rooms--list").html(printList);
