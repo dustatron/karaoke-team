@@ -46,6 +46,7 @@ export class Render {
                     <button class="show-playlist" value="${item.id}">show-playlist</button>
                     <button class="show-main-show" value="${item.id}">go to main show</button>
                     <button class="show-invite" value="${item.id}">share link</button>
+                    <button class="show-delete" value="${item.id}">Delete Room</button>
                 </div>
                 <div id="share-link-${item.id}" style="display:none;">
                     <input id="${item.id}-input" type="text" value="https://karaoke-team.web.app/?${item.id}"> 
@@ -75,10 +76,9 @@ export class Render {
             let valueOfButton = this.value;
             $(`#share-link-${valueOfButton}`).slideToggle();
         });
-
-
-
-
-
     }
+
+        
+        
+        
 }

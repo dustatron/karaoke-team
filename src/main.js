@@ -33,6 +33,7 @@ const db = firebase.firestore();
 // const dbTest = db.collection("test");
 const dbTestRoom = db.collection("rooms").doc("testroom");
 const dbRooms = db.collection("rooms");
+
 const render = new Render();
 
 
@@ -45,10 +46,10 @@ let ytSearch = new YtSearch();
 $(document).ready(function () {
   let searchObj = {};
   render.roomListListen();
-  
+
 
   //Login condition
-  firebase.auth().onAuthStateChanged((user)=>{
+  firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       let userID = firebase.auth().currentUser.uid;
       showRooms(userID)
@@ -71,7 +72,7 @@ $(document).ready(function () {
     }
   });
 
-// new room listener
+  // new room listener
   $("#room-name-btn").click(function (event) {
     event.preventDefault();
     console.log('click');
@@ -107,6 +108,10 @@ $(document).ready(function () {
       }
     })();
   }); //end search submit
+
+  $('.rooms--list').on('click', '.show-delete', function () {
+    dbRooms.doc(this.value).delete();
+  });
 
   $('.search-results').on('click', 'button', function () {
     let that = this;
@@ -158,13 +163,13 @@ $(document).ready(function () {
   });
   //print room list
   function showRooms(uid) {
-    dbRooms.where("userId", "==", uid).orderBy("timeCreated").onSnapshot(function(querySnapshot) {
+    dbRooms.where("userId", "==", uid).orderBy("timeCreated").onSnapshot(function (querySnapshot) {
       let printList = "";
-      querySnapshot.forEach(function(room) {
+      querySnapshot.forEach(function (room) {
         printList += `<li> ${room.data().roomName} </li>`
       });
       render.roomList(querySnapshot);
-      
+
       // $(".rooms--list").html(printList);
     });
   }
