@@ -12,7 +12,7 @@
 
 </head>
 <body>
-  <div  class="container site">
+  <div  class="site">
     <!-- input form  -->
     <div style='display: none'class="row">
       <div class="col-md-6 offset-md-3 box-decore">
@@ -35,7 +35,7 @@
       </div>
     </div>
  <!-- song search -->
-    <div class="playlist-header">
+    <div style="display: none"  class="playlist-header">
       <form class="search-form">
         <div class="input-wrap">
         <input type="text" id="ytSearchInput" placeholder="find song">
@@ -49,27 +49,33 @@
 
 
 
-  <div class="container site">
+  <div style="display: none" class="container site">
   
 
-      <div class="search-results">
+      <div style="display: none" class="search-results">
 
       </div>
 
-      <div class="playlist-render">
+      <div style="display: none" class="playlist-render">
 
       </div>
 
     </div> 
     <!-- End Playlist -->
+    <div class="show-screen">
+    <div id="player"></div>
+    <div class="play-backBtns">
+      <button id="play" ><i class="fas fa-play"></i></button>
+      <button id="stop" ><i class="fas fa-stop"></i></button>
+      <button id="pause" ><i class="fas fa-pause"></i></button>
+      <button id="next" ><i class="fas fa-step-forward"></i></button>
+      <button id="get-volume" ><i class="fas fa-volume-up"></i></button>
+      <div style="display: none" class="playlist-render">
+      </div>
 
-    <div  style="display: none"id="player">
-      <button id="play" class="btn-primary">play</button>
-      <button id="stop" class="btn-primary">stop</button>
-      <button id="pause" class="btn-primary">pause</button>
-      <button id="next" class="btn-primary">next</button>
-      <button id="get-volume" class="btn-primary">get volume</button>
-     </div>
+      </div>
+    </div>
+     
 
     <!-- login view -->
   </div>
