@@ -66,9 +66,9 @@ export class Render {
             document.execCommand("copy");
         });
 
-        $('.rooms--list').on('click', '.show-playlist', function () {
-            console.log('click');
-        });
+        // $('.rooms--list').on('click', '.show-playlist', function () {
+        //     console.log('click');
+        // });
         $('.rooms--list').on('click', '.show-main-show', function () {
             console.log('click');
         });

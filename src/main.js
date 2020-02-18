@@ -31,7 +31,7 @@ if (!firebase.apps.length) {
 // setting ref to database
 const db = firebase.firestore();
 // const dbTest = db.collection("test");
-const dbTestRoom = db.collection("rooms").doc("testroom");
+// const dbTestRoom = db.collection("rooms").doc("testroom");
 const dbRooms = db.collection("rooms");
 
 const render = new Render();
@@ -40,12 +40,14 @@ const render = new Render();
 // firebase Auth
 let loginUI = new firebaseui.auth.AuthUI(firebase.auth());
 let ytSearch = new YtSearch();
+let currentRoom = window.location.search.substring(1);
 
 ////////////////////////////////////////////////////////////////
 //////////////////////   DOC READY  ////////////////////////////
 $(document).ready(function () {
   let searchObj = {};
   render.roomListListen();
+  console.log("currentroom let", window.location.search.substring(1) );
 
 
   ////////////////////////////////////////////////////////////////
@@ -118,6 +120,11 @@ $(document).ready(function () {
     dbRooms.doc(this.value).delete();
   });
 
+  $('.rooms--list').on('click', '.show-playlist', function () {
+    window.location.href = `../?${this.value}`
+    
+  });
+
   //////////////////////////////////////////////////////////
   ////////////////// Playlist  ////////////////////////////
 
@@ -126,9 +133,9 @@ $(document).ready(function () {
     let that = this;
     async function pushSong() {
       let dataObj = searchObj.items[that.id];
-      let currentOrderNum;
+      let currentOrderNum = "testroom";
 
-      await dbTestRoom.get().then(function (doc) {
+      await dbRooms.doc(currentRoom).get().then(function (doc) {
         if (doc.exists) {
           currentOrderNum = doc.data().order;
           console.log('order is ', currentOrderNum);
@@ -149,7 +156,7 @@ $(document).ready(function () {
 
       console.log(tempObj);
 
-      dbTestRoom.collection('playlist').add(tempObj).then(function () {
+      dbRooms.doc(currentRoom).collection('playlist').add(tempObj).then(function () {
         console.log("Document successfully updated!");
       })
         .catch(function (error) {
@@ -159,7 +166,7 @@ $(document).ready(function () {
 
       $('.search-results').slideUp();
 
-      dbTestRoom.update({ order: currentOrderNum += 1 });
+      dbRooms.doc(currentRoom).update({ order: currentOrderNum += 1 });
     }
 
     pushSong();
@@ -167,7 +174,7 @@ $(document).ready(function () {
 
   //---Playlist delete song
   $('.playlist-render').on('click', '.delete', function () {
-    dbTestRoom.collection("playlist").doc(this.name).delete();
+    dbRooms.doc(currentRoom).collection("playlist").doc(this.name).delete();
   });
 
   //---Playlist move song up
@@ -176,14 +183,14 @@ $(document).ready(function () {
     let that = this;
     if (parseInt(this.value) > 1) {
       (async () => {
-        await dbTestRoom.collection("playlist").where("order", "==", aboveObj).get().then(function (docs) {
+        await dbRooms.doc(currentRoom).collection("playlist").where("order", "==", aboveObj).get().then(function (docs) {
           docs.forEach(function (doc) {
-            dbTestRoom.collection("playlist").doc(doc.id).update({ order: parseInt(that.value) });
+            dbRooms.doc(currentRoom).collection("playlist").doc(doc.id).update({ order: parseInt(that.value) });
             console.log("up", doc.id);
           });
         });
 
-        dbTestRoom.collection("playlist").doc(this.name).update({ order: parseInt(this.value) - 1 });
+        dbRooms.doc(currentRoom).collection("playlist").doc(this.name).update({ order: parseInt(this.value) - 1 });
       })();
     }
 
@@ -195,14 +202,14 @@ $(document).ready(function () {
     let that = this;
 
     (async () => {
-      await dbTestRoom.collection("playlist").where("order", "==", belowObj).get().then(function (docs) {
+      await dbRooms.doc(currentRoom).collection("playlist").where("order", "==", belowObj).get().then(function (docs) {
         docs.forEach(function (doc) {
-          dbTestRoom.collection("playlist").doc(doc.id).update({ order: parseInt(that.value) });
+          dbRooms.doc(currentRoom).collection("playlist").doc(doc.id).update({ order: parseInt(that.value) });
           console.log("down", doc.id);
         });
       });
 
-      dbTestRoom.collection("playlist").doc(this.name).update({ order: parseInt(this.value) + 1 });
+      dbRooms.doc(currentRoom).collection("playlist").doc(this.name).update({ order: parseInt(this.value) + 1 });
     })();
   });
   
@@ -211,11 +218,16 @@ $(document).ready(function () {
   
   //-------------------  DOM PRINTS ------------------\\
 
+// function DomPrintPlaylist(room) {
+  console.log('dom', currentRoom)
+
   // print Playlist
-  dbTestRoom.collection("playlist").orderBy("order").onSnapshot((querySnapshot) => {
+  dbRooms.doc(currentRoom).collection("playlist").orderBy("order").onSnapshot((querySnapshot) => {
     let printString = "";
     render.playlist(querySnapshot);
   });
+
+// }
 
   // print room list
   function showRooms(uid) {
