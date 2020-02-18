@@ -171,25 +171,42 @@ $(document).ready(function () {
     })();
   });
 
-  console.log("dom loaded");
 
-  // Load the IFrame Player API code asynchronously.
-  var tag = document.createElement('script');
+/////////////// Show Page ///////////////
+
+  // Show playlist //
+  dbTestRoom.collection("playlist").orderBy("order").onSnapshot((querySnapshot) => {
+    let render = new Render();
+    render.playlist(querySnapshot);
+  });
+
+  // Get the 1st song in playlist //
+  let videoID;
+  (async () => {
+    await dbTestRoom.collection("playlist").where("order", "==", 1).limit(1).onSnapshot(function(docs) {
+      docs.forEach(function(doc) {
+        console.log("doc: ", doc);
+        videoID = doc.data().videoLink;
+        console.log("videoLink: ", videoID);
+      });
+    });
+    console.log("videoID: ", videoID);
+  })(); 
+
+
+  console.log("videoID: ", videoID);
+  // Create a new script tag to call the iFrame API //
+  var tag = document.createElement("script");
   tag.src = "https://www.youtube.com/iframe_api";
-  var firstScriptTag = document.getElementsByTagName('script')[0];
+  var firstScriptTag = document.getElementsByTagName("script")[0];
   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-  console.log("tag: ", tag);
-  
 
-  // Replace the 'ytplayer' element with an <iframe> and
-  // YouTube player after the API code downloads.
+  // Instantiate the new API constructor and methods, pass the videoID //
   let iframeService = new IframeService();
 
-  iframeService.onYouTubePlayerAPIReady();
-  
-  // iframeService.onPlayerReady();
-  // iframeService.onPlayerStateChange();
-  // iframeService.stopVideo();
+  iframeService.onYouTubePlayerAPIReady("M7lc1UVf-VE");
+  iframeService.onPlayerReady();
+  iframeService.onPlayerStateChange();
 
   $("#play").click(function(){
     iframeService.playVideo()
