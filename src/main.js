@@ -146,7 +146,7 @@ $(document).ready(function () {
       });
 
       let tempObj = {
-        user: 'user',
+        user: firebase.auth().currentUser.displayName,
         order: currentOrderNum,
         videoLink: dataObj.id.videoId,
         videoName: dataObj.snippet.title,
@@ -183,10 +183,10 @@ $(document).ready(function () {
     let that = this;
     if (parseInt(this.value) > 1) {
       (async () => {
-        await dbRooms.doc(currentRoom).collection("playlist").where("order", "==", aboveObj).get().then(function (docs) {
+        await dbRooms.doc(currentRoom).collection("playlist").where("order", "<", parseInt(this.value)).orderBy("order", "desc").limit(1).get().then(function (docs) {
           docs.forEach(function (doc) {
             dbRooms.doc(currentRoom).collection("playlist").doc(doc.id).update({ order: parseInt(that.value) });
-            console.log("up", doc.id);
+            console.log("up", doc.data().order);
           });
         });
 
@@ -198,14 +198,12 @@ $(document).ready(function () {
 
   //---Playlist move song down
   $('.playlist-render').on('click', '.moveDown', function () {
-    let belowObj = parseInt(this.value) + 1;
     let that = this;
-
     (async () => {
-      await dbRooms.doc(currentRoom).collection("playlist").where("order", "==", belowObj).get().then(function (docs) {
+      await dbRooms.doc(currentRoom).collection("playlist").where("order", ">", parseInt(this.value)).orderBy("order", "asc").limit(1).get().then(function (docs) {
         docs.forEach(function (doc) {
+          console.log("down", doc.data().order);
           dbRooms.doc(currentRoom).collection("playlist").doc(doc.id).update({ order: parseInt(that.value) });
-          console.log("down", doc.id);
         });
       });
 
@@ -223,8 +221,8 @@ $(document).ready(function () {
 
   // print Playlist
   dbRooms.doc(currentRoom).collection("playlist").orderBy("order").onSnapshot((querySnapshot) => {
-    let printString = "";
     render.playlist(querySnapshot);
+    console.log(render.listObj);
   });
 
 // }
