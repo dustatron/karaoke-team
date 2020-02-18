@@ -33,6 +33,7 @@ const db = firebase.firestore();
 // const dbTest = db.collection("test");
 const dbTestRoom = db.collection("rooms").doc("testroom");
 const dbRooms = db.collection("rooms");
+const render = new Render();
 
 
 // firebase Auth
@@ -43,6 +44,7 @@ let ytSearch = new YtSearch();
 //////////////////////   DOC READY  ////////////////////////////
 $(document).ready(function () {
   let searchObj = {};
+  render.roomListListen();
   
 
   //Login condition
@@ -152,7 +154,6 @@ $(document).ready(function () {
   // print to DOM from database
   dbTestRoom.collection("playlist").orderBy("order").onSnapshot((querySnapshot) => {
     let printString = "";
-    let render = new Render();
     render.playlist(querySnapshot);
   });
   //print room list
@@ -162,7 +163,9 @@ $(document).ready(function () {
       querySnapshot.forEach(function(room) {
         printList += `<li> ${room.data().roomName} </li>`
       });
-      $(".rooms--list").html(printList);
+      render.roomList(querySnapshot);
+      
+      // $(".rooms--list").html(printList);
     });
   }
 
