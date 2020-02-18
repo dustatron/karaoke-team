@@ -2,10 +2,10 @@ import $ from "jquery";
 
 export class Render {
 
-    ytSearch(results){
+    ytSearch(results) {
         let printString = "";
-        let {items} = results;
-               items.forEach((video, index)=>{
+        let { items } = results;
+        items.forEach((video, index) => {
             printString += `<div class="ytSong"> 
             <div class="ytSong--title"> ${video.snippet.title} </div>
             <div class="ytSong--video">
@@ -20,7 +20,7 @@ export class Render {
         $(".search-results").html(printString);
     }
 
-    playlist(results){
+    playlist(results) {
         let printString = "";
         results.forEach((item) => {
             printString += `<div name="${item.data().videoLink}" id="${item.id}" class="playlist-box">
@@ -37,4 +37,48 @@ export class Render {
         $(".playlist-render").html(printString);
     }
 
+    roomList(rooms) {
+        let printString = "";
+        rooms.forEach((item) => {
+            printString += `<li>
+                <div>
+                    ${item.data().roomName} 
+                    <button class="show-playlist" value="${item.id}">show-playlist</button>
+                    <button class="show-main-show" value="${item.id}">go to main show</button>
+                    <button class="show-invite" value="${item.id}">share link</button>
+                    <button class="show-delete" value="${item.id}">Delete Room</button>
+                </div>
+                <div id="share-link-${item.id}" style="display:none;">
+                    <input id="${item.id}-input" type="text" value="https://karaoke-team.web.app/?${item.id}"> 
+                    <button name="${item.id}" class="copy-to-clipboard"> Copy Link </button>
+                </div>
+            </li>`
+        });
+        $(".rooms--list").html(printString);
+    }
+
+    roomListListen() {
+        $('.rooms--list').on('click', '.copy-to-clipboard', function () {
+            let nameValue = this.name;
+            let copyInput = document.getElementById(`${nameValue}-input`);
+            copyInput.select();
+            copyInput.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+        });
+
+        // $('.rooms--list').on('click', '.show-playlist', function () {
+        //     console.log('click');
+        // });
+        $('.rooms--list').on('click', '.show-main-show', function () {
+            console.log('click');
+        });
+        $('.rooms--list').on('click', '.show-invite', function () {
+            let valueOfButton = this.value;
+            $(`#share-link-${valueOfButton}`).slideToggle();
+        });
+    }
+
+        
+        
+        
 }

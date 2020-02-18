@@ -14,24 +14,24 @@
 <body>
   <div  class="container site">
     <!-- input form  -->
-    <div style='display: none'class="row">
+    <div class="row">
       <div class="col-md-6 offset-md-3 box-decore">
         <h3 class="text-center">Your New Room</h3>
         <form>
           <div class="form-group">
-            <label for="input-1">Name your Room</label>
-            <input type="text" class="form-control" id="input-1" aria-describedby="input">
+            <label for="room-name">Name your Room</label>
+            <input type="text" class="form-control" id="room-name" aria-describedby="input">
             
           </div>
-          <div class="form-group">
-            <label for="input-2">Descrption</label>
-            <input type="text" class="form-control" id="input-2">
-            <small id="input1-Help" class="form-text text-muted">Describe the Party</small>
-          </div>
           <div class="module-border-wrap">
-          <button id="submitBtn" class='module hvr-sweep-to-right'  type="submit">Get Singing</button>
+          <button id="room-name-btn" class='module hvr-sweep-to-right'  type="submit">Get Singing</button>
         </div>
         </form>
+        <div class="rooms">
+          <ul class="rooms--list">
+            <li>test</li>
+          </ul>
+        </div>
       </div>
     </div>
  <!-- song search -->
@@ -88,6 +88,6 @@
  <button id="pause" class="btn-primary">pause</button>
  <button id="next" class="btn-primary">next</button>
  <button id="get-volume" class="btn-primary">get volume</button>
- <div class="show-playlist"></div>
+ <div class="playlist-render"></div>
 </body>
 </html>

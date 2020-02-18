@@ -25,27 +25,39 @@ if (!firebase.apps.length) {
   // Initialize the FirebaseUI Widget using Firebase.
 }
 
+///////////////////////////////////////////////////////////////
+/////////////////// Load Constructors ////////////////////////
+
 // setting ref to database
 const db = firebase.firestore();
 // const dbTest = db.collection("test");
-const dbTestRoom = db.collection("rooms").doc("testroom");
-const increment = firebase.firestore.FieldValue.increment(+1);
+// const dbTestRoom = db.collection("rooms").doc("testroom");
+const dbRooms = db.collection("rooms");
+
+const render = new Render();
+
 
 // firebase Auth
 let loginUI = new firebaseui.auth.AuthUI(firebase.auth());
 let ytSearch = new YtSearch();
+let currentRoom = window.location.search.substring(1);
 
+////////////////////////////////////////////////////////////////
+//////////////////////   DOC READY  ////////////////////////////
 $(document).ready(function () {
   let searchObj = {};
-  let userID;
+  render.roomListListen();
+  console.log("currentroom let", window.location.search.substring(1) );
 
-  //Login condition
-  firebase.auth().onAuthStateChanged(function (user) {
+
+  ////////////////////////////////////////////////////////////////
+  //////////////////////   Login Auth  ////////////////////////////
+  firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      userID = firebase.auth().currentUser.uid;
+      let userID = firebase.auth().currentUser.uid;
+      showRooms(userID)
       $(".login").hide();
       $(".site").show();
-      console.log("userID", userID);
     } else {
       $(".site").hide();
       loginUI.start("#firebaseui-auth-container", {
@@ -63,8 +75,28 @@ $(document).ready(function () {
     }
   });
 
-  //get form submit button
-  $("form").submit((event) => {
+  /////////////////////////////////////////////////////////////////
+  //////////////////////   Listeners  ////////////////////////////
+
+  // Add new room button
+  $("#room-name-btn").click(function (event) {
+    event.preventDefault();
+    console.log('click');
+    console.log(firebase.auth().currentUser);
+    let roomObj = {
+      userId: firebase.auth().currentUser.uid,
+      userName: firebase.auth().currentUser.displayName,
+      userPhoto: firebase.auth().currentUser.photoURL,
+      roomName: $("input#room-name").val(),
+      playing: false,
+      order: 1,
+      currentSong: 0,
+      timeCreated: new Date().getTime(),
+    };
+    dbRooms.add(roomObj);
+  });
+
+  $(".search-form").submit((event) => {
     event.preventDefault();
     let render = new Render();
     let ytSearchInput = $("#ytSearchInput").val();
@@ -74,7 +106,7 @@ $(document).ready(function () {
     (async () => {
       const response = await ytSearch.getSongByTitle(ytSearchInput);
       searchObj = response;
-      console.log('seartch object',searchObj);
+      console.log('seartch object', searchObj);
       if (response.items.length > 0) {
         render.ytSearch(searchObj); //Print to Dom
       } else {
@@ -83,13 +115,27 @@ $(document).ready(function () {
     })();
   }); //end search submit
 
+  //Delete room button
+  $('.rooms--list').on('click', '.show-delete', function () {
+    dbRooms.doc(this.value).delete();
+  });
+
+  $('.rooms--list').on('click', '.show-playlist', function () {
+    window.location.href = `../?${this.value}`
+    
+  });
+
+  //////////////////////////////////////////////////////////
+  ////////////////// Playlist  ////////////////////////////
+
+  //---------Search button
   $('.search-results').on('click', 'button', function () {
     let that = this;
     async function pushSong() {
       let dataObj = searchObj.items[that.id];
-      let currentOrderNum;
+      let currentOrderNum = "testroom";
 
-      await dbTestRoom.get().then(function (doc) {
+      await dbRooms.doc(currentRoom).get().then(function (doc) {
         if (doc.exists) {
           currentOrderNum = doc.data().order;
           console.log('order is ', currentOrderNum);
@@ -110,7 +156,7 @@ $(document).ready(function () {
 
       console.log(tempObj);
 
-      dbTestRoom.collection('playlist').add(tempObj).then(function () {
+      dbRooms.doc(currentRoom).collection('playlist').add(tempObj).then(function () {
         console.log("Document successfully updated!");
       })
         .catch(function (error) {
@@ -120,57 +166,86 @@ $(document).ready(function () {
 
       $('.search-results').slideUp();
 
-      dbTestRoom.update({order: currentOrderNum += 1 });
+      dbRooms.doc(currentRoom).update({ order: currentOrderNum += 1 });
     }
 
     pushSong();
-  }); //-------------------  Click event listener
+  }); 
 
-  // print to DOM from database
-  dbTestRoom.collection("playlist").orderBy("order").onSnapshot((querySnapshot) => {
-    let printString = "";
-    let render = new Render();
-    render.playlist(querySnapshot);
+  //---Playlist delete song
+  $('.playlist-render').on('click', '.delete', function () {
+    dbRooms.doc(currentRoom).collection("playlist").doc(this.name).delete();
   });
 
-  $('.playlist-render').on('click', '.delete', function(){
-    dbTestRoom.collection("playlist").doc(this.name).delete();
-  });
-
-  $('.playlist-render').on('click', '.moveUp', function(){
-   let aboveObj = this.value - 1;
-   let that = this;
-    if(parseInt(this.value) > 1){
+  //---Playlist move song up
+  $('.playlist-render').on('click', '.moveUp', function () {
+    let aboveObj = this.value - 1;
+    let that = this;
+    if (parseInt(this.value) > 1) {
       (async () => {
-        await dbTestRoom.collection("playlist").where("order", "==", aboveObj).get().then(function(docs) {
-          docs.forEach(function(doc){
-            dbTestRoom.collection("playlist").doc(doc.id).update({ order: parseInt(that.value) });
+        await dbRooms.doc(currentRoom).collection("playlist").where("order", "==", aboveObj).get().then(function (docs) {
+          docs.forEach(function (doc) {
+            dbRooms.doc(currentRoom).collection("playlist").doc(doc.id).update({ order: parseInt(that.value) });
             console.log("up", doc.id);
           });
         });
-   
-        dbTestRoom.collection("playlist").doc(this.name).update({order: parseInt(this.value) - 1});
+
+        dbRooms.doc(currentRoom).collection("playlist").doc(this.name).update({ order: parseInt(this.value) - 1 });
       })();
     }
 
   });
 
-  $('.playlist-render').on('click', '.moveDown', function(){
+  //---Playlist move song down
+  $('.playlist-render').on('click', '.moveDown', function () {
     let belowObj = parseInt(this.value) + 1;
     let that = this;
- 
+
     (async () => {
-      await dbTestRoom.collection("playlist").where("order", "==", belowObj).get().then(function(docs) {
-        docs.forEach(function(doc){
-          dbTestRoom.collection("playlist").doc(doc.id).update({ order: parseInt(that.value) });
+      await dbRooms.doc(currentRoom).collection("playlist").where("order", "==", belowObj).get().then(function (docs) {
+        docs.forEach(function (doc) {
+          dbRooms.doc(currentRoom).collection("playlist").doc(doc.id).update({ order: parseInt(that.value) });
           console.log("down", doc.id);
         });
       });
- 
-      dbTestRoom.collection("playlist").doc(this.name).update({order: parseInt(this.value) + 1});
+
+      dbRooms.doc(currentRoom).collection("playlist").doc(this.name).update({ order: parseInt(this.value) + 1 });
     })();
   });
+  
+  
+  
+  
+  //-------------------  DOM PRINTS ------------------\\
 
+// function DomPrintPlaylist(room) {
+  console.log('dom', currentRoom)
+
+  // print Playlist
+  dbRooms.doc(currentRoom).collection("playlist").orderBy("order").onSnapshot((querySnapshot) => {
+    let printString = "";
+    render.playlist(querySnapshot);
+  });
+
+// }
+
+  // print room list
+  function showRooms(uid) {
+    dbRooms.where("userId", "==", uid).orderBy("timeCreated").onSnapshot(function (querySnapshot) {
+      let printList = "";
+      querySnapshot.forEach(function (room) {
+        printList += `<li> ${room.data().roomName} </li>`
+      });
+      render.roomList(querySnapshot);
+
+      // $(".rooms--list").html(printList);
+    });
+  }
+
+
+
+  ///////////////////////////////////////////////////////////////
+  ////////////////// Video Players  ////////////////////////////
 
 /////////////// Show Page ///////////////
 
@@ -228,25 +303,29 @@ $(document).ready(function () {
   tag.src = "https://www.youtube.com/iframe_api";
   var firstScriptTag = document.getElementsByTagName("script")[0];
   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  console.log("tag: ", tag);
+
 
   // Instantiate the new API constructor and methods, pass the videoID //
   let iframeService = new IframeService();
 
-  iframeService.onYouTubePlayerAPIReady("M7lc1UVf-VE");
-  iframeService.onPlayerReady();
-  iframeService.onPlayerStateChange();
+  iframeService.onYouTubePlayerAPIReady('8UFt4ru5S44');
 
-  $("#play").click(function(){
+  // iframeService.onPlayerReady();
+  // iframeService.onPlayerStateChange();
+  // iframeService.stopVideo();
+
+  $("#play").click(function () {
     iframeService.playVideo()
   });
-  $("#stop").click(function(){
+  $("#stop").click(function () {
     iframeService.stopVideo()
   });
-  $("#pause").click(function(){
+  $("#pause").click(function () {
     iframeService.pauseVideo()
   });
-  $("#next").click(function(){
+  $("#next").click(function () {
     iframeService.nextVideo()
   });
-  
-});
+
+}); //End document ready

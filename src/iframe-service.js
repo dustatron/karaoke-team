@@ -3,26 +3,26 @@ export class IframeService {
     this.player
   }
 
-
-  onYouTubePlayerAPIReady() {
   
-    console.log("inthe function");
-    this.player = new YT.Player('player', {
-      // height: '720',
-      // width: '1280',
-      videoId: 'M7lc1UVf-VE',
-      autoplay: 1,
-      // events: {
-      //   'onReady': onPlayerReady,
-      //   'onStateChange': onPlayerStateChange,
-      // }
-    });
-    this.player.addEventListener("onReady", "onYouTubePlayerReady");
-    this.player.addEventListener("onStateChange", "onYouTubePlayerStateChange");
-  }
+    onYouTubePlayerAPIReady(id) {
+      this.player = new YT.Player("player", {
+        // height: "200",
+        // width: "400",
+        videoId: id,
+        autoplay: 1,
+        modestbranding: 1
+        // events: {
+        //   'onReady': onPlayerReady,
+        //   'onStateChange': onPlayerStateChange,
+        // }
+      });
+      console.log("this.player: ", this.player);
+      this.player.addEventListener("onReady", "onYouTubePlayerReady");
+      this.player.addEventListener("onStateChange", "onYouTubePlayerStateChange");
+    }
+
   // 4. The API will call this function when the video this. is ready.
   onPlayerReady(event) {
-    console.log("onplayerready fired");
     event.target.playVideo();
   }
 
@@ -30,7 +30,6 @@ export class IframeService {
   //    The function indicates that when playing a video (state=1),
   //    the player should play for six seconds and then stop.
   onPlayerStateChange(event) {
-    console.log("onplayerstatechange fired");
     let done = false;
     if (event.data == YT.PlayerState.PLAYING && !done) {
       setTimeout(stopVideo, 6000);
