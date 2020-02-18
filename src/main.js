@@ -5,6 +5,8 @@ import * as firebaseui from "firebaseui";
 
 import "./scss/main.scss";
 import $ from "jquery";
+import { YtSearch } from "./youtube-search-service";
+import { Render } from "./render";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC-YzJrwqc7dqtxy1dGAMvAvymJ-ZF1F3M",
@@ -23,16 +25,21 @@ if (!firebase.apps.length) {
 }
 
 // setting ref to database
-let db = firebase.firestore();
-let dbTest = db.collection("test");
+const db = firebase.firestore();
+// const dbTest = db.collection("test");
+const dbTestRoom = db.collection("rooms").doc("testroom");
+const increment = firebase.firestore.FieldValue.increment(+1);
+
 // firebase Auth
 let loginUI = new firebaseui.auth.AuthUI(firebase.auth());
+let ytSearch = new YtSearch();
 
-$(document).ready(function() {
+$(document).ready(function () {
+  let searchObj = {};
   let userID;
 
   //Login condition
-  firebase.auth().onAuthStateChanged(function(user) {
+  firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
       userID = firebase.auth().currentUser.uid;
       $(".login").hide();
@@ -58,34 +65,108 @@ $(document).ready(function() {
   //get form submit button
   $("form").submit((event) => {
     event.preventDefault();
-    let input1 = $("#input-1").val();
-    let input2 = $("#input-2").val();
+    let render = new Render();
+    let ytSearchInput = $("#ytSearchInput").val();
+    $('.search-results').slideDown();
 
-    const testObj = {
-      input1: input1,
-      input2: input2
-    };
 
-    //write to database
-    dbTest
-      .add(testObj)
-      .then(function(docRef) {
-        console.log("Document written with ID: ", docRef.id);
-      })
-      .catch(function(error) {
-        console.error("Error adding document: ", error);
+    (async () => {
+      const response = await ytSearch.getSongByTitle(ytSearchInput);
+      searchObj = response;
+      console.log('seartch object',searchObj);
+      if (response.items.length > 0) {
+        render.ytSearch(searchObj); //Print to Dom
+      } else {
+        $(".search-results").html('no results');
+      }
+    })();
+  }); //end search submit
+
+  $('.search-results').on('click', 'button', function () {
+    let that = this;
+    async function pushSong() {
+      let dataObj = searchObj.items[that.id];
+      let currentOrderNum;
+
+      await dbTestRoom.get().then(function (doc) {
+        if (doc.exists) {
+          currentOrderNum = doc.data().order;
+          console.log('order is ', currentOrderNum);
+        } else {
+          // doc.data() will be undefined in this case
+          console.error("No such document!");
+        }
       });
-  }); //end Document ready
 
-  //print to DOM from database
-  dbTest.onSnapshot((querySnapshot) => {
+      let tempObj = {
+        user: 'user',
+        order: currentOrderNum,
+        videoLink: dataObj.id.videoId,
+        videoName: dataObj.snippet.title,
+        createdAt: new Date().getTime(),
+        img: dataObj.snippet.thumbnails.default.url
+      }
+
+      console.log(tempObj);
+
+      dbTestRoom.collection('playlist').add(tempObj).then(function () {
+        console.log("Document successfully updated!");
+      })
+        .catch(function (error) {
+          // The document probably doesn't exist.
+          console.error("Error updating document: ", error);
+        });
+
+      $('.search-results').slideUp();
+
+      dbTestRoom.update({order: currentOrderNum += 1 });
+    }
+
+    pushSong();
+  }); //-------------------  Click event listener
+
+  // print to DOM from database
+  dbTestRoom.collection("playlist").orderBy("order").onSnapshot((querySnapshot) => {
     let printString = "";
-    querySnapshot.forEach((item) => {
-      printString += `<div class="card card-cont ">
-        <div class="text-center card-id" >Doc ID: ${item.id} </div> 
-        <div class="text-center card-data" >${item.data().input1} | ${item.data().input2} </div> 
-      </div>`;
-    });
-    $(".output").html(printString);
+    let render = new Render();
+    render.playlist(querySnapshot);
   });
-});
+
+  $('.playlist-render').on('click', '.delete', function(){
+    dbTestRoom.collection("playlist").doc(this.name).delete();
+  });
+
+  $('.playlist-render').on('click', '.moveUp', function(){
+   let aboveObj = this.value - 1;
+   let that = this;
+    if(parseInt(this.value) > 1){
+      (async () => {
+        await dbTestRoom.collection("playlist").where("order", "==", aboveObj).get().then(function(docs) {
+          docs.forEach(function(doc){
+            dbTestRoom.collection("playlist").doc(doc.id).update({ order: parseInt(that.value) });
+            console.log("up", doc.id);
+          });
+        });
+   
+        dbTestRoom.collection("playlist").doc(this.name).update({order: parseInt(this.value) - 1});
+      })();
+    }
+
+  });
+
+  $('.playlist-render').on('click', '.moveDown', function(){
+    let belowObj = parseInt(this.value) + 1;
+    let that = this;
+ 
+    (async () => {
+      await dbTestRoom.collection("playlist").where("order", "==", belowObj).get().then(function(docs) {
+        docs.forEach(function(doc){
+          dbTestRoom.collection("playlist").doc(doc.id).update({ order: parseInt(that.value) });
+          console.log("down", doc.id);
+        });
+      });
+ 
+      dbTestRoom.collection("playlist").doc(this.name).update({order: parseInt(this.value) + 1});
+    })();
+  });
+});//end Document ready
