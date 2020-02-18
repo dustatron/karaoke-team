@@ -175,26 +175,54 @@ $(document).ready(function () {
 /////////////// Show Page ///////////////
 
   // Show playlist //
-  dbTestRoom.collection("playlist").orderBy("order").onSnapshot((querySnapshot) => {
+  dbTestRoom.collection("playlist").orderBy("order").onSnapshot((results) => {
     let render = new Render();
-    render.playlist(querySnapshot);
+    console.log("querySnapshot: ", results);
+
+    results.forEach(function(result){
+      console.log("result: ", result);
+      // $("#show-playlist").html(
+      //   `<div name="${item.data().videoLink}" id="${item.id}" class="playlist-box">
+      //     <div class ="playlist--title"> ${item.data().videoName} </div>
+      //     <div class="playlist--order"> ${item.data().order} <img src="${item.data().img}"></div>
+      //     <div class="playlist--user"> ${item.data().user} </div>
+      //     <div class="playlist--buttons">
+      //         <button class="btn btn-danger delete" name="${item.id}">delete song</button>
+      //         <button class="btn btn-success moveUp" name="${item.id}" value="${item.data().order}"><i class="fas fa-arrow-up"></i></button>
+      //         <button class="btn btn-success moveDown" name="${item.id}" value="${item.data().order}"><i class="fas fa-arrow-down"></i></button>
+      //     </div>
+      //   </div>`)
+    })
+  //   querySnapshot.forEach((item) => {
+  //     printString += `<div name="${item.data().videoLink}" id="${item.id}" class="playlist-box">
+  //         <div class ="playlist--title"> ${item.data().videoName} </div>
+  //         <div class="playlist--order"> ${item.data().order} <img src="${item.data().img}"></div>
+  //         <div class="playlist--user"> ${item.data().user} </div>
+  //         <div class="playlist--buttons">
+  //             <button class="btn btn-danger delete" name="${item.id}">delete song</button>
+  //             <button class="btn btn-success moveUp" name="${item.id}" value="${item.data().order}"><i class="fas fa-arrow-up"></i></button>
+  //             <button class="btn btn-success moveDown" name="${item.id}" value="${item.data().order}"><i class="fas fa-arrow-down"></i></button>
+  //         </div>
+  //     </div>`
+  // });
+  //   $("#show-playlist").html("Playlist");
+    // $("#show-playlist").html(printString);
   });
 
   // Get the 1st song in playlist //
-  let videoID;
-  (async () => {
-    await dbTestRoom.collection("playlist").where("order", "==", 1).limit(1).onSnapshot(function(docs) {
-      docs.forEach(function(doc) {
-        console.log("doc: ", doc);
-        videoID = doc.data().videoLink;
-        console.log("videoLink: ", videoID);
-      });
-    });
-    console.log("videoID: ", videoID);
-  })(); 
+  // let videoID;
+  // (async () => {
+  //   await dbTestRoom.collection("playlist").where("order", "==", 1).limit(1).onSnapshot(function(docs) {
+  //     docs.forEach(function(doc) {
+  //       console.log("doc: ", doc);
+  //       videoID = doc.data().videoLink;
+  //       console.log("videoLink: ", videoID);
+  //     });
+  //   });
+  //   console.log("videoID: ", videoID);
+  // })(); 
 
 
-  console.log("videoID: ", videoID);
   // Create a new script tag to call the iFrame API //
   var tag = document.createElement("script");
   tag.src = "https://www.youtube.com/iframe_api";

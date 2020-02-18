@@ -37,20 +37,4 @@ export class Render {
         $(".playlist-render").html(printString);
     }
 
-    showPlaylist(results){
-      let printString = "";
-      results.forEach((item) => {
-          printString += `<div name="${item.data().videoLink}" id="${item.id}" class="playlist-box">
-              <div class ="playlist--title"> ${item.data().videoName} </div>
-              <div class="playlist--order"> ${item.data().order} <img src="${item.data().img}"></div>
-              <div class="playlist--user"> ${item.data().user} </div>
-              <div class="playlist--buttons">
-                  <button class="btn btn-danger delete" name="${item.id}">delete song</button>
-                  <button class="btn btn-success moveUp" name="${item.id}" value="${item.data().order}"><i class="fas fa-arrow-up"></i></button>
-                  <button class="btn btn-success moveDown" name="${item.id}" value="${item.data().order}"><i class="fas fa-arrow-down"></i></button>
-              </div>
-          </div>`
-      });
-      $("#show-playlist").html(printString);
-  }
 }
