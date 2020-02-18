@@ -7,6 +7,7 @@ import "./scss/main.scss";
 import $ from "jquery";
 import { YtSearch } from "./youtube-search-service";
 import { Render } from "./render";
+import { IframeService } from "./iframe-service";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC-YzJrwqc7dqtxy1dGAMvAvymJ-ZF1F3M",
@@ -169,4 +170,38 @@ $(document).ready(function () {
       dbTestRoom.collection("playlist").doc(this.name).update({order: parseInt(this.value) + 1});
     })();
   });
-});//end Document ready
+
+  console.log("dom loaded");
+
+  // Load the IFrame Player API code asynchronously.
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  console.log("tag: ", tag);
+  
+
+  // Replace the 'ytplayer' element with an <iframe> and
+  // YouTube player after the API code downloads.
+  let iframeService = new IframeService();
+
+  iframeService.onYouTubePlayerAPIReady();
+  
+  // iframeService.onPlayerReady();
+  // iframeService.onPlayerStateChange();
+  // iframeService.stopVideo();
+
+  $("#play").click(function(){
+    iframeService.playVideo()
+  });
+  $("#stop").click(function(){
+    iframeService.stopVideo()
+  });
+  $("#pause").click(function(){
+    iframeService.pauseVideo()
+  });
+  $("#next").click(function(){
+    iframeService.nextVideo()
+  });
+  
+});
