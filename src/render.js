@@ -47,7 +47,7 @@ export class Render {
                     <button class="show-main-show" value="${item.id}">go to main show</button>
                     <button class="show-invite" value="${item.id}">share link</button>
                 </div>
-                <div>
+                <div id="share-link-${item.id}" style="display:none;">
                     <input id="${item.id}-input" type="text" value="https://karaoke-team.web.app/?${item.id}"> 
                     <button name="${item.id}" class="copy-to-clipboard"> Copy Link </button>
                 </div>
@@ -72,7 +72,8 @@ export class Render {
             console.log('click');
         });
         $('.rooms--list').on('click', '.show-invite', function () {
-            console.log('click');
+            let valueOfButton = this.value;
+            $(`#share-link-${valueOfButton}`).slideToggle();
         });
 
 
