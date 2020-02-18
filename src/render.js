@@ -26,6 +26,7 @@ export class Render {
 
     playlist(results) {
         let printString = "";
+        this.clearPlayListObj();
         results.forEach((item) => {
             let { videoLink, order, user, createdAt, videoName } = item.data()
             let videoItem = {
@@ -70,6 +71,10 @@ export class Render {
             </li>`
         });
         $(".rooms--list").html(printString);
+    }
+
+    clearPlayListObj(){
+        this.listObj = [];
     }
 
     roomListListen() {

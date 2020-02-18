@@ -146,7 +146,7 @@ $(document).ready(function () {
       });
 
       let tempObj = {
-        user: 'user',
+        user: firebase.auth().currentUser.displayName,
         order: currentOrderNum,
         videoLink: dataObj.id.videoId,
         videoName: dataObj.snippet.title,
@@ -221,7 +221,6 @@ $(document).ready(function () {
 
   // print Playlist
   dbRooms.doc(currentRoom).collection("playlist").orderBy("order").onSnapshot((querySnapshot) => {
-    let printString = "";
     render.playlist(querySnapshot);
     console.log(render.listObj);
   });
