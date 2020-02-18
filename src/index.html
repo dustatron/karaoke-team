@@ -1,48 +1,88 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel='icon' href="./imges/radio.png">
+   <!-- Place your kit's code here -->
+   <script src="https://kit.fontawesome.com/6a64d8de6b.js" crossorigin="anonymous"></script>
+   <script src='https://www.youtube.com/iframe_api'></script>
   <title>Karaoke Team</title>
-</head>
 
+</head>
 <body>
-  <div class="container site">
+  <div  class="container site">
     <!-- input form  -->
-    <div class="row">
+    <div style='display: none'class="row">
       <div class="col-md-6 offset-md-3 box-decore">
-        <h1 class="text-center">Karaoke Team</h1>
+        <h3 class="text-center">Your New Room</h3>
         <form>
           <div class="form-group">
-            <label for="input-1">Input 1</label>
+            <label for="input-1">Name your Room</label>
             <input type="text" class="form-control" id="input-1" aria-describedby="input">
-            <small id="input1-Help" class="form-text text-muted">You can put your thoughts here.</small>
+            
           </div>
           <div class="form-group">
-            <label for="input-2">Input 2</label>
+            <label for="input-2">Descrption</label>
             <input type="text" class="form-control" id="input-2">
+            <small id="input1-Help" class="form-text text-muted">Describe the Party</small>
           </div>
-          <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="checkbox-1">
-            <label class="form-check-label" for="checkbox-1">click it</label>
-          </div>
-          <button id="submitBtn" type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+          <div class="module-border-wrap">
+          <button id="submitBtn" class='module hvr-sweep-to-right'  type="submit">Get Singing</button>
+        </div>
         </form>
       </div>
     </div>
-
-    <!-- output box  -->
-    <div class="row">
-      <div class="col-md-6 offset-md-3">
-        <div class="output">Output here</div>
-      </div>
+ <!-- song search -->
+    <div class="playlist-header">
+      <form class="search-form">
+        <div class="input-wrap">
+        <input type="text" id="ytSearchInput" placeholder="find song">
+        
+      <button class="search-button"><img src="./imges/search.svg" alt="" srcset=""></button>
+    </div>  
+    </form>
     </div>
+
+
+
+
+
+  <div class="container site">
+  
+
+      <div class="search-results">
+
+      </div>
+
+      <div class="playlist-render">
+
+      </div>
+
+    </div> <!-- End Playlist -->
+
+
     <!-- login view -->
   </div>
-  <div class="row login">
-    <div class="col-md-6 offset-md-3">
+  <div class="login">
+    <h1>Karaokey</h1>
+    <img  class='logo' src="./imges/mic.svg" alt="microphone">
+    <p>Start singing</p>
+    <div>
       <div id="firebaseui-auth-container"></div>
     </div>
   </div>
 </body>
-
+<footer style="display: none">
+    Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+  Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+</footer>
+ <div id="player"></div>
+ <button id="play" class="btn-primary">play</button>
+ <button id="stop" class="btn-primary">stop</button>
+ <button id="pause" class="btn-primary">pause</button>
+ <button id="next" class="btn-primary">next</button>
+ <button id="get-volume" class="btn-primary">get volume</button>
+</body>
 </html>

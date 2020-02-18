@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Raleway&display=swap');
 @import '~bootstrap';
 @import "vender/firebaseui.scss";
 
@@ -14,3 +15,11 @@
 @import "layout/_footer";
 
 @import "pages/home";
+@import 'make room/make_room';
+@import 'landing/landing';
+@import 'playlist/playlist';
+body{
+    background-color: #272526;
+    font-family: 'Montserrat', sans-serif;
+    color: #0590ff;
+}

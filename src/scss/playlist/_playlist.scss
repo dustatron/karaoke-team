@@ -1,0 +1,56 @@
+
+
+
+
+#ytSearchInput{
+    width: 100%;
+    height: 2.5rem;
+    padding-right: 7.5rem;
+    background:#272526;
+    border: none;
+}
+
+.search-button{
+    background: none;
+    border: none;
+    height: auto;
+    margin-left: -3.5rem;
+    height: 20px;
+    width: 50px;
+    transition: all linear .5s;
+   // margin: .1rem;
+}
+.search-button:hover{
+    margin-left: -3.5rem;
+    height: 20px;
+    width: 50px;
+    transform: scale(1.2);
+    filter: hue-rotate(360deg)
+}
+.search-button img  :hover{
+    fill: green; 
+}
+
+.input-wrap {
+    border-radius: .5rem;
+    width: 100%;
+    position: relative;
+    background: -webkit-linear-gradient(-86deg, #8046E5 0%, #0590ff 55%, #FD4A8D 95%);
+    padding:  3px ;
+  }
+  
+
+// .yt-song{
+
+
+
+   
+// }
+
+// .yt-song-title{
+//  font-size: 1rem;
+//  font-weight: bolder;
+// }
+// .yt-song-description{
+
+// }
