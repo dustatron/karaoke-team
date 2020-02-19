@@ -76,3 +76,76 @@ h3{
     -webkit-transform: scaleX(1);
     transform: scaleX(1);
   }
+  .rooms{
+    display: flex;
+    flex-flow: row wrap;
+  }
+.room{
+margin: 1rem;
+padding: 1rem;
+width: 40%;
+height: 10rem;
+background:  -webkit-linear-gradient(0deg, rgba(128, 70, 229, 0.281) 0%, #058fff59 55%, rgba(253, 74, 140, 0.329) 95%);
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+border-radius: 1rem;
+}
+.room h4{
+  font-size: 1.5rem;
+  margin: .5rem 0 .5rem 0;
+
+}
+
+.room-btns{
+display: flex;
+flex-flow: row wrap;
+width: 100%;
+justify-content: center;
+align-content: center
+
+}
+
+.room-btns button {
+ width: 30%;
+  border: none;
+  background: none;
+  margin:  1rem;
+  transition: all linear .2s;
+  color: white
+}
+@keyframes color-change{
+  0% { color: rgb(128, 70, 229) }
+  25% { color: #058fff; }
+  50% { color: rgb(253, 74, 140) }
+  75% { color:#058fff ; }
+  100% { color: rgb(128, 70, 229); }
+}
+@keyframes border-bottom-change{
+  0% { border-bottom: solid rgb(128, 70, 229) .3rem; }
+  25% { border-bottom: solid #0590ff .3rem; }
+  50% { border-bottom: solid rgb(253, 74, 140) .3rem; }
+  75% { border-bottom: solid #0590ff .3rem; }
+  100% { border-bottom: solid rgb(128, 70, 229) .3rem; }
+}
+
+.room-btns button:hover{
+  transform: scale(2);
+  border: none;
+  background: none;
+  animation: color-change 2.5s infinite;
+}
+.room-btns button:focus{
+  outline: none;
+  border-bottom: none;
+  background: none;
+}
+.room-btns input{
+  background: none;
+  outline: none;
+  border: none;
+  color: #0590ff;
+  border-bottom: solid #0590ff 2px;
+  animation: border-bottom-change 10s infinite;
+}

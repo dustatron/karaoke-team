@@ -42,15 +42,18 @@ export class Render {
       };
 
       this.listObj.push(videoItem);
-      printString += `<div name="${item.data().videoLink}" id="${item.id}" class="playlist-box">
-                <div class ="playlist--title"> ${item.data().videoName} </div>
-                <div class="playlist--order"> ${item.data().order} <img src="${item.data().img}"></div>
-                <div class="playlist--user"> ${item.data().user} </div>
-                <div class="playlist--buttons">
-                    <button class="btn btn-danger delete" name="${item.id}">delete song</button>
-                    <button class="btn btn-success moveUp" name="${item.id}" value="${item.data()
+      printString += `
+            <div name="${item.data().videoLink}" id="${item.id}" class="playlist-box">
+                 <img src="${item.data().img}">
+                <div class="info-container"
+                <p class ="playlist-title"> ${item.data().videoName} </p>
+                <h6 class="playlist-user"> ${item.data().user} </h6>
+                </div>
+                <div class="playlist-buttons">
+                    <button class="delete" name="${item.id}"><i class="fas fa-trash"></i></button>
+                    <button class="moveUp" name="${item.id}" value="${item.data()
         .order}"><i class="fas fa-arrow-up"></i></button>
-                    <button class="btn btn-success moveDown" name="${item.id}" value="${item.data()
+                    <button class="moveDown" name="${item.id}" value="${item.data()
         .order}"><i class="fas fa-arrow-down"></i></button>
                 </div>
             </div>`;
@@ -60,25 +63,56 @@ export class Render {
 
   roomList(rooms) {
     let printString = "";
+    let formString = `
+        <div class='room'>
+          <form class='room-btns'>
+          <input id="room-name" aria-describedby="input" class='room-add' type="text" placeholder="New Room">
+          <button id="room-name-btn"  type="submit"><i class="fas fa-plus"></i></button>
+        </form>
+        </div>
+        `;
     rooms.forEach((item) => {
-      printString += `<li>
-                <div>
-                    ${item.data().roomName} 
-                    <button class="show-playlist" value="${item.id}">show-playlist</button>
-                    <button class="show-main-show" value="${item.id}">go to main show</button>
-                    <button class="show-invite" value="${item.id}">share link</button>
-                    <button class="show-delete" value="${item.id}">Delete Room</button>
+      printString += `
+                <div class="room">
+                   <h4> ${item.data().roomName} </h4>
+                    <div class="room-btns">
+                    <button class="show-playlist" value="${item.id}"><i class="fas fa-list"></i></button>
+                    <button class="show-main-show" value="${item.id}"><i class="fas fa-play-circle"></i></button>
+                    <button class="show-invite" value="${item.id}"><i class="fas fa-share-square"></i></button>
+                    <button class="show-delete" value="${item.id}"><i class="fas fa-trash"></i></button>
                 </div>
                 <div id="share-link-${item.id}" style="display:none;">
                     <input id="${item.id}-input" type="text" value="https://karaoke-team.web.app/?${item.id}"> 
                     <button name="${item.id}" class="copy-to-clipboard"> Copy Link </button>
                 </div>
-            </li>`;
+                </div>
+           `;
     });
-    $(".rooms--list").html(printString);
+    $(".rooms").html(formString + printString);
   }
 
   clearPlayListObj() {
     this.listObj = [];
+  }
+
+  roomListListen() {
+    $(".rooms--list").on("click", ".copy-to-clipboard", function() {
+      let nameValue = this.name;
+      let copyInput = document.getElementById(`${nameValue}-input`);
+      copyInput.select();
+      copyInput.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+    });
+
+    // $('.rooms--list').on('click', '.show-playlist', function () {
+    //     console.log('click');
+    // });
+    $(".rooms--list").on("click", ".show-main-show", function() {
+      console.log("click");
+    });
+    $(".rooms--list").on("click", ".show-invite", function() {
+      let valueOfButton = this.value;
+      $(`#share-link-${valueOfButton}`).slideToggle();
+    });
   }
 }

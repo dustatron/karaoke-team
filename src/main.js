@@ -95,7 +95,7 @@ $(document).ready(function() {
   //////////////////////   Listeners  ////////////////////////////
 
   // Add new room button
-  $("#room-name-btn").click(function(event) {
+  $(".rooms").on("click", "#room-name-btn", function(event) {
     event.preventDefault();
     console.log("click");
     console.log(firebase.auth().currentUser);
