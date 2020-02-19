@@ -164,7 +164,7 @@ $(document).ready(function () {
           console.error("Error updating document: ", error);
         });
 
-      $('.search-results').slideUp();
+      $('.search-results').slideUp(1000);
 
       dbRooms.doc(currentRoom).update({ order: currentOrderNum += 1 });
     }

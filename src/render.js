@@ -8,16 +8,19 @@ export class Render {
 
     ytSearch(results) {
         let printString = "";
-        let { items } = results;
-        items.forEach((video, index) => {
-            printString += `<div class="ytSong"> 
-            <div class="ytSong--title"> ${video.snippet.title} </div>
-            <div class="ytSong--video">
-                <iframe id="player" type="text/html" width="640" height="390" src="http://www.youtube.com/embed/${video.id.videoId}" frameborder="0"></iframe>
-            </div>
-            <div class="ytSong--info">
-                <div class="ytSong--description">${video.snippet.description}</div>
-                <button id="${index}" class="search-btn btn btn-lg btn-info" type="button">Add Song</button>
+        let {items} = results;
+               items.forEach((video, index)=>{
+            printString += `
+            <div class="ytSong"> 
+                <div class="ytSong-video">
+                    <iframe id="player" type="text/html" src="http://www.youtube.com/embed/${video.id.videoId}" frameborder="0"></iframe>
+                </div>
+            <div class="ytSong-info">
+                <h4 class="ytSong-title"> ${video.snippet.title} </h4>
+                <p class="ytSong-description">${video.snippet.description}</p>
+                <div class="module-border-wrap">
+                    <button id="${index}" class="module hvr-sweep-to-right hvr-icon-forward" type="button">Add Song   <i class="hvr-icon fas fa-arrow-right"></i> </button>
+                </div>
             </div>
             </div>`
         });
