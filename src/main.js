@@ -299,10 +299,6 @@ $(document).ready(function() {
     controls: 0,
     modestbranding: 1
   });
-  console.log("player: ", player);
-
-  // Set Player Parameters
-  // @ {Object}
 
   player.loadVideoById("7X1zFEoJHvs");
   let isPlaying = false;
