@@ -80,11 +80,10 @@ $(document).ready(function() {
     if (user) {
       getView();
       let userID = firebase.auth().currentUser.uid;
-      showRooms(userID);
-      $(".login").hide();
       $(".site").show();
+      showRooms(userID);
     } else {
-      $(".site").hide();
+      $(".login").show();
       loginUI.start("#firebaseui-auth-container", {
         signInSuccessUrl: "?0",
         signInOptions: [
