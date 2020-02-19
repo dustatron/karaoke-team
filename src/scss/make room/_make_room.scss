@@ -1,3 +1,4 @@
+@import "./abstracts/mixins";
 h3{
     text-align: center;
     font-size: 5rem;
@@ -91,6 +92,12 @@ flex-direction: column;
 justify-content: center;
 align-items: center;
 border-radius: 1rem;
+@include respond(phone){
+  width:80%;
+}
+@include respond(tab-port){
+  width:80%;
+}
 }
 .room h4{
   font-size: 1.5rem;
@@ -171,6 +178,14 @@ padding: 0;
   background:  -webkit-linear-gradient(0deg, rgba(128, 70, 229, 0.281) 0%, #058fff59 55%, rgba(253, 74, 140, 0.329) 95%);
   padding: .3rem;
   margin: 1rem;
+  @include respond(phone){
+    width:80%;
+    height: 12rem;
+  }
+  @include respond(tab-port){
+    width:80%;
+    height: 12rem;
+  }
 }
 @keyframes flash{
   0% { background: -webkit-linear-gradient(0deg, rgb(128, 70, 229) 0%, #058fff 55%, rgb(253, 74, 140) 95%) ; }
@@ -186,5 +201,8 @@ padding: 0;
   animation: flash .5s infinite;
 }
 .add-btn{
+  font-size: 2.5rem;
+}
+.add-btn:hover{
   font-size: 2.5rem;
 }
