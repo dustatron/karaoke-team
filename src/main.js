@@ -249,7 +249,7 @@ $(document).ready(function () {
 
   // Player //
   let player = YouTubePlayer('player');
-  player.loadVideoById('ZY3J3Y_OU0w');
+  player.loadVideoById('7X1zFEoJHvs');
   let isPlaying = false;
   
   // PLAY BUTTON NOT WORKING CORRECTLY
