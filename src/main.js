@@ -135,6 +135,11 @@ $(document).ready(function() {
     })();
   }); //end search submit
 
+  // ----------- Logout ---------- \\
+  $(".logout").click(() => {
+    firebase.auth().signOut();
+  });
+
   ///////////////////////////////////////////////////////////
   /////////////// Playlist buttons ////////////////////////
   //------- delete
@@ -304,7 +309,7 @@ $(document).ready(function() {
   // Set Player Parameters
   // @ {Object}
 
-  player.loadVideoById("7X1zFEoJHvs");
+  player.loadVideoById("Gvzu8TNCpmo");
   let isPlaying = false;
 
   // PLAY BUTTON NOT WORKING CORRECTLY

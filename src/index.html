@@ -14,109 +14,111 @@
 </head>
 
 <body>
-
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="./"><i class="fas fa-home"></i></a>
-
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Logout</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-
-
-
-  <div class="site" style="display:none">
-    <!-- input form  -->
-    <div class="row room-view">
-      <div class="col-md-6 offset-md-3 box-decore">
-        <h3 class="text-center">Your New Room</h3>
-        <div class="rooms">
-          <!-- Render Rooms -->
+  <div class="wrapper">
+    <div class="site" style="display:none">
+      <!-- input form  -->
+      <div class="row room-view">
+        <div class="col-md-6 offset-md-3 box-decore">
+          <h3 class="text-center">Your New Room</h3>
+          <div class="rooms">
+            <!-- Render Rooms -->
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="container playlist">
-      <div class="row">
-        <div class="col-md-6 offset-md-3">
-          <div class="">
-            <!-- song search -->
-            <div class="playlist-header">
-              <form class="search-form">
-                <div class="input-wrap">
-                  <input type="text" id="ytSearchInput" placeholder="find song">
-                  <button class="search-button"><img src="./imges/search.svg" alt="" srcset=""></button>
-                </div>
-              </form>
+      <div class="container playlist">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="">
+              <!-- song search -->
+              <div class="playlist-header">
+                <form class="search-form">
+                  <div class="input-wrap">
+                    <input type="text" id="ytSearchInput" placeholder="find song">
+                    <button class="search-button"><img src="./imges/search.svg" alt="" srcset=""></button>
+                  </div>
+                </form>
+              </div>
+              <div class="search-results">
+                <!-- Render Search results-->
+              </div>
+              <div class="playlist-render">
+                <!-- Render Playlist-->
+              </div>
             </div>
-            <div class="search-results">
-              <!-- Render Search results-->
+            <!-- End Playlist -->
+          </div>
+        </div>
+
+      </div>
+
+      <div class="container-fluid show-screen">
+        <div class="row">
+          <div class="col-md-8">
+            <!--Show View -->
+            <div class="">
+              <div id="player"></div>
+              <div class="play-backBtns">
+                <button id="play"><i class="fas fa-play"></i></button>
+                <button id="stop"><i class="fas fa-stop"></i></button>
+                <button id="pause"><i class="fas fa-pause"></i></button>
+                <button id="next"><i class="fas fa-step-forward"></i></button>
+                <button id="get-volume"><i class="fas fa-volume-up"></i></button>
+                <div style="display: none" class="playlist-render"></div>
+              </div>
             </div>
+          </div>
+          <!--Show / Playlist -->
+          <div class="col-md-3">
             <div class="playlist-render">
               <!-- Render Playlist-->
             </div>
           </div>
-          <!-- End Playlist -->
-        </div>
+
+        </div> <!-- end row -->
+
       </div>
 
+
     </div>
 
-    <div class="container-fluid show-screen">
+    <!-- login view -->
+    <div class="container">
       <div class="row">
-        <div class="col-md-8">
-          <!--Show View -->
-          <div class="">
-            <div id="player"></div>
-            <div class="play-backBtns">
-              <button id="play"><i class="fas fa-play"></i></button>
-              <button id="stop"><i class="fas fa-stop"></i></button>
-              <button id="pause"><i class="fas fa-pause"></i></button>
-              <button id="next"><i class="fas fa-step-forward"></i></button>
-              <button id="get-volume"><i class="fas fa-volume-up"></i></button>
-              <div style="display: none" class="playlist-render"></div>
+        <div class="col-md-6 offset-md-3">
+
+          <div class="login" style="display: none">
+            <h1>Karaokey</h1>
+            <img class='logo' src="./imges/mic.svg" alt="microphone">
+            <p>Start singing</p>
+            <div>
+              <div id="firebaseui-auth-container"></div>
             </div>
           </div>
+          <div class="push"></div>
         </div>
-        <!--Show / Playlist -->
-        <div class="col-md-3">
-          <div class="playlist-render">
-            <!-- Render Playlist-->
-          </div>
-        </div>
-
-      </div> <!-- end row -->
-
+      </div>
     </div>
 
-
   </div>
-
-  <!-- login view -->
-  <div class="login" style="display: none">
-    <h1>Karaokey</h1>
-    <img class='logo' src="./imges/mic.svg" alt="microphone">
-    <p>Start singing</p>
-    <div>
-      <div id="firebaseui-auth-container"></div>
+  </div>
+  <footer class="footer">
+    <div class="container text-center">
+      <span><span class="home"><a href="./"><i class="fas fa-home"></i></a> </span>| <span
+          class="logout">Logout</span></span>
     </div>
-  </div>
+
+  </footer>
 </body>
 
 
-<footer style="display: none">
+
+
+<i style="display: none">
   Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a
     href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
   Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a
     href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-</footer>
-
-</div>
-</body>
+</i>
 
 </html>
