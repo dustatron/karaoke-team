@@ -105,8 +105,6 @@ $(document).ready(function() {
   // Add new room button
   $(".rooms").on("click", "#room-name-btn", function(event) {
     event.preventDefault();
-    console.log("click");
-    console.log(firebase.auth().currentUser);
     let roomObj = {
       userId: firebase.auth().currentUser.uid,
       userName: firebase.auth().currentUser.displayName,
@@ -129,7 +127,6 @@ $(document).ready(function() {
     (async () => {
       const response = await ytSearch.getSongByTitle(ytSearchInput);
       searchObj = response;
-      console.log("seartch object", searchObj);
       if (response.items.length > 0) {
         render.ytSearch(searchObj); //Print to Dom
       } else {
@@ -179,7 +176,6 @@ $(document).ready(function() {
       await dbRooms.doc(currentRoom).get().then(function(doc) {
         if (doc.exists) {
           currentOrderNum = doc.data().order;
-          console.log("order is ", currentOrderNum);
         } else {
           // doc.data() will be undefined in this case
           console.error("No such document!");
@@ -194,8 +190,6 @@ $(document).ready(function() {
         createdAt: new Date().getTime(),
         img: dataObj.snippet.thumbnails.default.url
       };
-
-      console.log(tempObj);
 
       dbRooms
         .doc(currentRoom)
@@ -301,22 +295,27 @@ $(document).ready(function() {
   /////////////// Show Page ///////////////
 
   // Player //
-  let player = YouTubePlayer("player");
-  player.loadVideoById("Gvzu8TNCpmo");
+  let player = YouTubePlayer("player", {
+    controls: 0,
+    modestbranding: 1
+  });
+  console.log("player: ", player);
+
+  // Set Player Parameters
+  // @ {Object}
+
+  player.loadVideoById("7X1zFEoJHvs");
   let isPlaying = false;
 
   // PLAY BUTTON NOT WORKING CORRECTLY
   $("#play").click(() => {
-    let playState;
-    function changeState() {
-      playState = true;
-    }
+    player.playVideo();
+
     dbRooms.doc(currentRoom).get().then((doc) => {
       if (doc.exists) {
         changeState();
       }
     });
-    console.log(playState);
 
     if (!playState) {
       advanceSong();
@@ -330,24 +329,30 @@ $(document).ready(function() {
     }
   });
 
-  $("#stop").click(() => {
-    player.stopVideo();
-  });
   $("#pause").click(() => {
     player.pauseVideo();
   });
+
   $("#next").click(() => {
     advanceSong();
   });
+
   player.on("stateChange", (event) => {
     if (event.data === 0) {
       advanceSong();
     }
   });
   function advanceSong() {
-    console.log(render.listObj[0].docId);
+    // if playlist is empty, play end song
+    let playlist = render.listObj;
+    if (playlist.length == 0) {
+      player.loadVideoById("G2Wm5aZC1BQ");
+    }
+
+    render.updateCurrentSong();
+
     dbRooms.doc(currentRoom).collection("playlist").doc(render.listObj[0].docId).delete().then(() => {
-      player.loadVideoById(render.listObj[0].videoLink);
+      player.loadVideoById(render.currentSong.videoLink);
     });
   }
 }); //End document ready
