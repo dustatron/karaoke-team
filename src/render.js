@@ -43,15 +43,18 @@ export class Render {
       };
 
       this.listObj.push(videoItem);
-      printString += `<div name="${item.data().videoLink}" id="${item.id}" class="playlist-box">
-                <div class ="playlist--title"> ${item.data().videoName} </div>
-                <div class="playlist--order"> ${item.data().order} <img src="${item.data().img}"></div>
-                <div class="playlist--user"> ${item.data().user} </div>
-                <div class="playlist--buttons">
-                    <button class="btn btn-danger delete" name="${item.id}">delete song</button>
-                    <button class="btn btn-success moveUp" name="${item.id}" value="${item.data()
+      printString += `
+            <div name="${item.data().videoLink}" id="${item.id}" class="playlist-box">
+                 <img src="${item.data().img}">
+                <div class="info-container"
+                <p class ="playlist-title"> ${item.data().videoName} </p>
+                <h6 class="playlist-user"> ${item.data().user} </h6>
+                </div>
+                <div class="playlist-buttons">
+                    <button class="delete" name="${item.id}"><i class="fas fa-trash"></i></button>
+                    <button class="moveUp" name="${item.id}" value="${item.data()
         .order}"><i class="fas fa-arrow-up"></i></button>
-                    <button class="btn btn-success moveDown" name="${item.id}" value="${item.data()
+                    <button class="moveDown" name="${item.id}" value="${item.data()
         .order}"><i class="fas fa-arrow-down"></i></button>
                 </div>
             </div>`;
@@ -62,7 +65,7 @@ export class Render {
   roomList(rooms) {
     let printString = "";
     let formString = `
-        <div class='room '>
+        <div class='room add'>
           <form class='room-btns'>
           <input id="room-name" aria-describedby="input" class='room-add' type="text" placeholder="New Room">
           <button id="room-name-btn"  type="submit"><i class="fas fa-plus"></i></button>
