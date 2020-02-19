@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel='icon' href="./imges/radio.png">
-   <!-- Place your kit's code here -->
-   <script src="https://kit.fontawesome.com/6a64d8de6b.js" crossorigin="anonymous"></script>
-   <script src='https://www.youtube.com/iframe_api'></script>
+  <!-- Place your kit's code here -->
+  <script src="https://kit.fontawesome.com/6a64d8de6b.js" crossorigin="anonymous"></script>
+  <script src='https://www.youtube.com/iframe_api'></script>
   <title>Karaoke Team</title>
 
 </head>
+
 <body>
-  <div  class="site">
+  <div class="site">
     <!-- input form  -->
     <div class="row">
       <div class="col-md-6 offset-md-3 box-decore">
@@ -21,11 +23,11 @@
           <div class="form-group">
             <label for="room-name">Name your Room</label>
             <input type="text" class="form-control" id="room-name" aria-describedby="input">
-            
+
           </div>
           <div class="module-border-wrap">
-          <button id="room-name-btn" class='module hvr-sweep-to-right'  type="submit">Get Singing</button>
-        </div>
+            <button id="room-name-btn" class='module hvr-sweep-to-right' type="submit">Get Singing</button>
+          </div>
         </form>
         <div class="rooms">
           <ul class="rooms--list">
@@ -34,54 +36,54 @@
         </div>
       </div>
     </div>
- <!-- song search -->
-    <div style="display: none"  class="playlist-header">
+    <!-- song search -->
+    <div class="playlist-header">
       <form class="search-form">
         <div class="input-wrap">
-        <input type="text" id="ytSearchInput" placeholder="find song">
-        
-      <button class="search-button"><img src="./imges/search.svg" alt="" srcset=""></button>
-    </div>  
-    </form>
+          <input type="text" id="ytSearchInput" placeholder="find song">
+
+          <button class="search-button"><img src="./imges/search.svg" alt="" srcset=""></button>
+        </div>
+      </form>
     </div>
 
 
 
 
 
-  <div style="display: none" class="container site">
-  
+    <div class="container site">
+
 
       <div style="display: none" class="search-results">
 
       </div>
 
-      <div style="display: none" class="playlist-render">
+      <div class="playlist-render">
 
       </div>
 
-    </div> 
+    </div>
     <!-- End Playlist -->
     <div class="show-screen">
-    <div id="player"></div>
-    <div class="play-backBtns">
-      <button id="play" ><i class="fas fa-play"></i></button>
-      <button id="stop" ><i class="fas fa-stop"></i></button>
-      <button id="pause" ><i class="fas fa-pause"></i></button>
-      <button id="next" ><i class="fas fa-step-forward"></i></button>
-      <button id="get-volume" ><i class="fas fa-volume-up"></i></button>
-      <div style="display: none" class="playlist-render">
-      </div>
+      <div id="player"></div>
+      <div class="play-backBtns">
+        <button id="play"><i class="fas fa-play"></i></button>
+        <button id="stop"><i class="fas fa-stop"></i></button>
+        <button id="pause"><i class="fas fa-pause"></i></button>
+        <button id="next"><i class="fas fa-step-forward"></i></button>
+        <button id="get-volume"><i class="fas fa-volume-up"></i></button>
+        <div style="display: none" class="playlist-render">
+        </div>
 
       </div>
     </div>
-     
+
 
     <!-- login view -->
   </div>
   <div class="login">
     <h1>Karaokey</h1>
-    <img  class='logo' src="./imges/mic.svg" alt="microphone">
+    <img class='logo' src="./imges/mic.svg" alt="microphone">
     <p>Start singing</p>
     <div>
       <div id="firebaseui-auth-container"></div>
@@ -89,19 +91,22 @@
   </div>
 </body>
 <footer style="display: none">
-    Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-  Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+  Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a
+    href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+  Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a
+    href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 </footer>
 
 
 <!-- Show Page -->
 
- <div id="player"></div>
- <button id="play" class="btn-primary">play</button>
- <button id="stop" class="btn-primary">stop</button>
- <button id="pause" class="btn-primary">pause</button>
- <button id="next" class="btn-primary">next</button>
- <button id="get-volume" class="btn-primary">get volume</button>
- 
+<div id="player"></div>
+<button id="play" class="btn-primary">play</button>
+<button id="stop" class="btn-primary">stop</button>
+<button id="pause" class="btn-primary">pause</button>
+<button id="next" class="btn-primary">next</button>
+<button id="get-volume" class="btn-primary">get volume</button>
+
 </body>
+
 </html>
