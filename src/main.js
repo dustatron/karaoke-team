@@ -7,7 +7,7 @@ import "./scss/main.scss";
 import $ from "jquery";
 import { YtSearch } from "./youtube-search-service";
 import { Render } from "./render";
-import { IframeService } from "./iframe-service";
+import YouTubePlayer from 'youtube-player';
 
 const firebaseConfig = {
   apiKey: "AIzaSyC-YzJrwqc7dqtxy1dGAMvAvymJ-ZF1F3M",
@@ -247,83 +247,60 @@ $(document).ready(function () {
 
 /////////////// Show Page ///////////////
 
-  // Show playlist //
-  dbTestRoom.collection("playlist").orderBy("order").onSnapshot((results) => {
-    let render = new Render();
-    console.log("querySnapshot: ", results);
+  // Player //
+  let player = YouTubePlayer('player');
+  player.loadVideoById('ZY3J3Y_OU0w');
+  let isPlaying = false;
+  
+  // PLAY BUTTON NOT WORKING CORRECTLY
+  $('#play').click(()=>{
+    let playState;
+    function changeState(){
+      playState = true;
+    }
+    dbRooms.doc(currentRoom).get().then(doc => {
+      if (doc.exists) {
+        changeState();
+      }
+    });
+    console.log(playState);
 
-    results.forEach(function(result){
-      console.log("result: ", result);
-      // $("#show-playlist").html(
-      //   `<div name="${item.data().videoLink}" id="${item.id}" class="playlist-box">
-      //     <div class ="playlist--title"> ${item.data().videoName} </div>
-      //     <div class="playlist--order"> ${item.data().order} <img src="${item.data().img}"></div>
-      //     <div class="playlist--user"> ${item.data().user} </div>
-      //     <div class="playlist--buttons">
-      //         <button class="btn btn-danger delete" name="${item.id}">delete song</button>
-      //         <button class="btn btn-success moveUp" name="${item.id}" value="${item.data().order}"><i class="fas fa-arrow-up"></i></button>
-      //         <button class="btn btn-success moveDown" name="${item.id}" value="${item.data().order}"><i class="fas fa-arrow-down"></i></button>
-      //     </div>
-      //   </div>`)
-    })
-  //   querySnapshot.forEach((item) => {
-  //     printString += `<div name="${item.data().videoLink}" id="${item.id}" class="playlist-box">
-  //         <div class ="playlist--title"> ${item.data().videoName} </div>
-  //         <div class="playlist--order"> ${item.data().order} <img src="${item.data().img}"></div>
-  //         <div class="playlist--user"> ${item.data().user} </div>
-  //         <div class="playlist--buttons">
-  //             <button class="btn btn-danger delete" name="${item.id}">delete song</button>
-  //             <button class="btn btn-success moveUp" name="${item.id}" value="${item.data().order}"><i class="fas fa-arrow-up"></i></button>
-  //             <button class="btn btn-success moveDown" name="${item.id}" value="${item.data().order}"><i class="fas fa-arrow-down"></i></button>
-  //         </div>
-  //     </div>`
-  // });
-  //   $("#show-playlist").html("Playlist");
-    // $("#show-playlist").html(printString);
+    if(!playState){
+      advanceSong();
+      dbRooms.doc(currentRoom).update({playing: true});
+    } else if (playState && !isPlaying) {
+      player.playVideo();
+      isPlaying = true;
+    } else if (playState && isPlaying) {
+      player.pauseVideo();
+      isPlaying = false;
+    }
   });
 
-  // Get the 1st song in playlist //
-  // let videoID;
-  // (async () => {
-  //   await dbTestRoom.collection("playlist").where("order", "==", 1).limit(1).onSnapshot(function(docs) {
-  //     docs.forEach(function(doc) {
-  //       console.log("doc: ", doc);
-  //       videoID = doc.data().videoLink;
-  //       console.log("videoLink: ", videoID);
-  //     });
-  //   });
-  //   console.log("videoID: ", videoID);
-  // })(); 
-
-
-  // Create a new script tag to call the iFrame API //
-  var tag = document.createElement("script");
-  tag.src = "https://www.youtube.com/iframe_api";
-  var firstScriptTag = document.getElementsByTagName("script")[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-  console.log("tag: ", tag);
-
-
-  // Instantiate the new API constructor and methods, pass the videoID //
-  let iframeService = new IframeService();
-
-  iframeService.onYouTubePlayerAPIReady('8UFt4ru5S44');
-
-  // iframeService.onPlayerReady();
-  // iframeService.onPlayerStateChange();
-  // iframeService.stopVideo();
-
-  $("#play").click(function () {
-    iframeService.playVideo()
+  $('#stop').click(()=>{
+    player.stopVideo()
   });
-  $("#stop").click(function () {
-    iframeService.stopVideo()
+  $('#pause').click(()=>{
+    player.pauseVideo()
   });
-  $("#pause").click(function () {
-    iframeService.pauseVideo()
+  $('#next').click(()=>{
+    advanceSong();
   });
-  $("#next").click(function () {
-    iframeService.nextVideo()
+  player.on('stateChange', (event) => {
+    if (event.data === 0){
+     advanceSong()
+    }
+    
+  })
+function advanceSong(){
+  console.log(render.listObj[0].docId);
+  dbRooms.doc(currentRoom).collection("playlist").doc(render.listObj[0].docId).delete().then(()=>{
+    player.loadVideoById(render.listObj[0].videoLink);
   });
+
+}
+ 
 
 }); //End document ready
+
+
