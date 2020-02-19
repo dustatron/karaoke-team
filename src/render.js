@@ -107,9 +107,6 @@ export class Render {
       document.execCommand("copy");
     });
 
-    // $('.rooms--list').on('click', '.show-playlist', function () {
-    //     console.log('click');
-    // });
     $(".rooms--list").on("click", ".show-main-show", function() {
       console.log("click");
     });
@@ -122,8 +119,8 @@ export class Render {
 
   updateCurrentSong() {
     this.currentSong = this.listObj[0];
-    console.log("render.currentSong", this.currentSong);
-    $(".current-song").append(`<li>${this.currentSong.videoName}</li>`);
-    $(".current-song").append(`<li>${this.currentSong.user}</li>`);
+    console.log("render.currentSong.videoName", this.currentSong.videoName);
+    console.log("render.currentSong.user", this.currentSong.user);
+    $(".current-song").html(`<div>${this.currentSong.videoName}</div><div>${this.currentSong.user}</div>`);
   }
 }
