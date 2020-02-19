@@ -64,11 +64,13 @@ export class Render {
   roomList(rooms) {
     let printString = "";
     let formString = `
-        <div class='room '>
+        <div class='module-add-wrap' >
+        <div class='room add'>
           <form class='room-btns'>
-          <input id="room-name" aria-describedby="input" class='room-add' type="text" placeholder="New Room">
-          <button id="room-name-btn"  type="submit"><i class="fas fa-plus"></i></button>
+          <input id="room-name" aria-describedby="input" class='room-add' type="text" placeholder="New Room" autofocus required>
+          <button id="room-name-btn"  type="submit"><i class="add-btn fas fa-plus"></i></button>
         </form>
+        </div>
         </div>
         `;
     rooms.forEach((item) => {

@@ -157,5 +157,34 @@ align-content: center
   align-content: center;
 }
 .add {
-  background: #494949ce
+  background: #272526;
+  width: 100%;
+  height: 100%;
+  border: none;
+  margin: 0;
+padding: 0;
+}
+.module-add-wrap {
+  border-radius: 1rem;
+  width: 40%;
+  position: relative;
+  background:  -webkit-linear-gradient(0deg, rgba(128, 70, 229, 0.281) 0%, #058fff59 55%, rgba(253, 74, 140, 0.329) 95%);
+  padding: .3rem;
+  margin: 1rem;
+}
+@keyframes flash{
+  0% { background: -webkit-linear-gradient(0deg, rgb(128, 70, 229) 0%, #058fff 55%, rgb(253, 74, 140) 95%) ; }
+  33% { background: -webkit-linear-gradient(0deg, rgb(253, 74, 140) 0%, rgb(128, 70, 229) 55%, #058fff 95%); }
+  67% { background: -webkit-linear-gradient(0deg, #058fff  0%, rgb(253, 74, 140) 55%, rgb(128, 70, 229)  95%) ; }
+  100% { background: -webkit-linear-gradient(0deg, rgb(128, 70, 229) 0%, #058fff 55%, rgb(253, 74, 140) 95%) ; }
+}
+
+.rooms input::placeholder{
+  background: -webkit-linear-gradient(0deg, rgb(253, 74, 140) 0%, rgb(128, 70, 229) 55%, #058fff 95%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: flash .5s infinite;
+}
+.add-btn{
+  font-size: 2.5rem;
 }
