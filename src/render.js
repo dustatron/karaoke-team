@@ -117,4 +117,12 @@ export class Render {
       $(`#share-link-${valueOfButton}`).slideToggle();
     });
   }
+
+  updateCurrentSong() {
+    this.currentSong = this.listObj[0];
+    console.log("render.currentSong", this.currentSong);
+    $(".current-song").append(`<li>${this.currentSong.videoName}</li>`)
+    $(".current-song").append(`<li>${this.currentSong.user}</li>`)
+  }
+
 }
