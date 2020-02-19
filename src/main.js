@@ -133,24 +133,24 @@ $(document).ready(function() {
   ///////////////////////////////////////////////////////////
   /////////////// Playlist buttons ////////////////////////
   //------- delete
-  $(".rooms--list").on("click", ".show-delete", function() {
+  $(".rooms").on("click", ".show-delete", function() {
     dbRooms.doc(this.value).delete();
   });
   //------- playlist view
-  $(".rooms--list").on("click", ".show-playlist", function() {
+  $(".rooms").on("click", ".show-playlist", function() {
     window.location.href = `../?1${this.value}`;
   });
   //------- show view
-  $(".rooms--list").on("click", ".show-main-show", function() {
+  $(".rooms").on("click", ".show-main-show", function() {
     window.location.href = `../?2${this.value}`;
   });
   //------- show invite link
-  $(".rooms--list").on("click", ".show-invite", function() {
+  $(".rooms").on("click", ".show-invite", function() {
     let valueOfButton = this.value;
     $(`#share-link-${valueOfButton}`).slideToggle();
   });
 
-  $(".rooms--list").on("click", ".copy-to-clipboard", function() {
+  $(".rooms").on("click", ".copy-to-clipboard", function() {
     let nameValue = this.name;
     let copyInput = document.getElementById(`${nameValue}-input`);
     copyInput.select();
