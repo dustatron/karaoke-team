@@ -62,7 +62,7 @@ export class Render {
   roomList(rooms) {
     let printString = "";
     let formString = `
-        <div class='room'>
+        <div class='room '>
           <form class='room-btns'>
           <input id="room-name" aria-describedby="input" class='room-add' type="text" placeholder="New Room">
           <button id="room-name-btn"  type="submit"><i class="fas fa-plus"></i></button>
@@ -79,9 +79,9 @@ export class Render {
                     <button class="show-invite" value="${item.id}"><i class="fas fa-share-square"></i></button>
                     <button class="show-delete" value="${item.id}"><i class="fas fa-trash"></i></button>
                 </div>
-                <div id="share-link-${item.id}" style="display:none;">
-                    <input id="${item.id}-input" type="text" value="https://karaoke-team.web.app/?${item.id}"> 
-                    <button name="${item.id}" class="copy-to-clipboard"> Copy Link </button>
+                <div id="share-link-${item.id}" class='share-link-cont' style="display:none;">
+                    <input read id="${item.id}-input" type="text" value="https://karaoke-team.web.app/?1${item.id}"> 
+                    <button name="${item.id}" class="copy-to-clipboard"> <i class="fas fa-link"></i></button>
                 </div>
                 </div>
            `;
@@ -108,6 +108,7 @@ export class Render {
     $(".rooms--list").on("click", ".show-main-show", function() {
       console.log("click");
     });
+
     $(".rooms--list").on("click", ".show-invite", function() {
       let valueOfButton = this.value;
       $(`#share-link-${valueOfButton}`).slideToggle();

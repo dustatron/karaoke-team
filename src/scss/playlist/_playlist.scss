@@ -36,10 +36,20 @@
   border-radius: .5rem;
   width: 100%;
   position: relative;
-  background: -webkit-linear-gradient(-86deg, #8046e5 0%, #0590ff 55%, #fd4a8d 95%);
+  background: -webkit-linear-gradient(0deg, rgba(128, 70, 229, 0.281) 0%, #058fff59 55%, rgba(253, 74, 140, 0.329) 95%);
   padding: 3px;
 }
 
+.playlist-box {
+  display: flex;
+  background: -webkit-linear-gradient(0deg, rgba(128, 70, 229, 0.281) 0%, #058fff59 55%, rgba(253, 74, 140, 0.329) 95%);
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  margin: 2rem 0;
+  border-radius: 1rem;
+  height: 20vh;
+}
 .playlist-box {
   display: flex;
   background: -webkit-linear-gradient(0deg, rgba(128, 70, 229, 0.281) 0%, #058fff59 55%, rgba(253, 74, 140, 0.329) 95%);
@@ -92,6 +102,7 @@
 .ytSong-video {
   width: 90%;
 }
+
 .hvr-icon-forward {
   display: inline-block;
   vertical-align: middle;
@@ -101,6 +112,7 @@
   -webkit-transition-duration: 0.1s;
   transition-duration: 0.1s;
 }
+
 .hvr-icon-forward .hvr-icon {
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
@@ -111,6 +123,7 @@
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
+
 .hvr-icon-forward:hover .hvr-icon,
 .hvr-icon-forward:focus .hvr-icon,
 .hvr-icon-forward:active .hvr-icon {

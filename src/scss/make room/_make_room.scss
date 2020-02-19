@@ -23,7 +23,7 @@ h3{
     border-radius: .5rem;
     width: 100%;
     position: relative;
-    background: -webkit-linear-gradient(-86deg, #8046E5 0%, #0590ff 55%, #FD4A8D 95%);
+    background:  -webkit-linear-gradient(0deg, rgba(128, 70, 229, 0.281) 0%, #058fff59 55%, rgba(253, 74, 140, 0.329) 95%);
     padding: 3px;
   }
   
@@ -84,7 +84,7 @@ h3{
 margin: 1rem;
 padding: 1rem;
 width: 40%;
-height: 10rem;
+height: auto;
 background:  -webkit-linear-gradient(0deg, rgba(128, 70, 229, 0.281) 0%, #058fff59 55%, rgba(253, 74, 140, 0.329) 95%);
 display: flex;
 flex-direction: column;
@@ -107,7 +107,7 @@ align-content: center
 
 }
 
-.room-btns button {
+.rooms button {
  width: 30%;
   border: none;
   background: none;
@@ -130,22 +130,32 @@ align-content: center
   100% { border-bottom: solid rgb(128, 70, 229) .3rem; }
 }
 
-.room-btns button:hover{
+.rooms button:hover{
   transform: scale(2);
   border: none;
   background: none;
   animation: color-change 2.5s infinite;
 }
-.room-btns button:focus{
+.rooms button:focus{
   outline: none;
   border-bottom: none;
   background: none;
 }
-.room-btns input{
+.rooms input{
   background: none;
   outline: none;
   border: none;
   color: #0590ff;
   border-bottom: solid #0590ff 2px;
   animation: border-bottom-change 10s infinite;
+  padding:.1rem;
+}
+.share-link-cont{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.add {
+  background: #494949ce
 }
