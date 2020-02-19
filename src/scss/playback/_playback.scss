@@ -1,51 +1,59 @@
-.show-screen{
-    width: 100vw;
-    height: 100vh;
-    padding: 2rem;
-    margin: 0;
-    
-}   
-.play-backBtns{
-    
-    height: 4rem;
-    border-radius: 1rem;
-    background:  -webkit-linear-gradient(0deg, rgba(128, 70, 229, 0.281) 0%, #058fff59 55%, rgba(253, 74, 140, 0.329) 95%);
-    display: flex;
-    justify-content: center;
+.show-screen {
+  width: 100%;
+  height: 100vh;
+  padding: 2rem;
+  margin: 0;
+}
+.play-backBtns {
+  height: 4rem;
+  border-radius: 1rem;
+  background: -webkit-linear-gradient(0deg, rgba(128, 70, 229, 0.281) 0%, #058fff59 55%, rgba(253, 74, 140, 0.329) 95%);
+  display: flex;
+  justify-content: center;
 }
 
 .play-backBtns button {
-   width: 80%;
-    border: none;
-    background: none;
-    margin: 0 1rem;
-    transition: all linear .2s;
-    color: white
+  width: 80%;
+  border: none;
+  background: none;
+  margin: 0 1rem;
+  transition: all linear .2s;
+  color: white;
 }
-@keyframes color-change{
-    0% { color: rgb(128, 70, 229) }
-    25% { color: #058fff; }
-    50% { color: rgb(253, 74, 140) }
-    75% { color:#058fff ; }
-    100% { color: rgb(128, 70, 229); }
-}
-
-
-.play-backBtns button:hover{
-    transform: scale(2);
-    border: none;
-    background: none;
-    animation: color-change 2.5s infinite;
-}
-.play-backBtns button:focus{
-    transform: scale(2);
-    outline: none;
-    border-bottom: none;
-    background: none;
-    animation: color-change 2.5s infinite;
+@keyframes color-change {
+  0% {
+    color: rgb(128, 70, 229);
+  }
+  25% {
+    color: #058fff;
+  }
+  50% {
+    color: rgb(253, 74, 140);
+  }
+  75% {
+    color: #058fff;
+  }
+  100% {
+    color: rgb(128, 70, 229);
+  }
 }
 
-#next:focus,#get-volume:focus{
-    transform: none;
-    animation: none;
+.play-backBtns button:hover {
+  transform: scale(2);
+  border: none;
+  background: none;
+  animation: color-change 2.5s infinite;
+}
+.play-backBtns button:focus {
+  transform: scale(2);
+  outline: none;
+  border-bottom: none;
+  background: none;
+  animation: color-change 2.5s infinite;
+}
+
+#next:focus,
+#get-volume:focus {
+  transform: none;
+  animation: none;
 }

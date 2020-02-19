@@ -47,11 +47,20 @@ function getView() {
   let view = window.location.search.substring(1).charAt(0);
   let roomId = window.location.search.substring(2);
 
-  if (view === "0") {
+  if (view === "0" || !view) {
+    //Main room
+    $(".show-screen").hide();
+    $(".playlist").hide();
     console.log("render dashboard", view);
   } else if (view === "1") {
+    $(".room-view").hide();
+    $(".playlist").fadeIn();
+    $(".show-screen").hide();
     console.log("render playlist", view);
   } else if (view === "2") {
+    $(".room-view").hide();
+    $(".playlist").hide();
+    $(".show-screen").fadeIn();
     console.log("render show", view);
   } else {
     console.log("no room param", view);
@@ -294,7 +303,7 @@ $(document).ready(function() {
 
   // Player //
   let player = YouTubePlayer("player");
-  player.loadVideoById("7X1zFEoJHvs");
+  player.loadVideoById("Gvzu8TNCpmo");
   let isPlaying = false;
 
   // PLAY BUTTON NOT WORKING CORRECTLY
