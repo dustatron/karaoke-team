@@ -1,5 +1,7 @@
 # _Karaoke Party Team_
 
+![Alt text](src/imges/splashscreen.png?raw=true "Optional Title")
+
 #### _Feb 17th. 2020_
 
 #### By: _**Dusty McCord, Eric Settels, K. Wicz, Josh Hellman & Todd Walraven**_

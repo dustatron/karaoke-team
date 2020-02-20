@@ -5,27 +5,30 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+   
 }
 .logo{
  height: 12vh;
  max-width: 50vh;
- margin-bottom: 1rem;
+ margin-bottom: 2rem;
+ @include respond(phone){
+    height: 15vh;
+  }
 }
-p{
-  
-    font-family: 'Montserrat', sans-serif;
-    text-align: center;
-    color: #0590ff;
-}
+
 h1{
     text-align: center;
     font-size: 15rem;
     font-family: 'Akronim', sans-serif;
-    color: rgba(255, 255, 255, 0.473);
-    margin-bottom: 5rem;
+    color: rgba(255, 255, 255, 0.651);
+    margin-bottom: 3rem;
     background: -webkit-linear-gradient(-56deg, #8046E5 0%, #0590ff 55%, #FD4A8D 95%);
     -webkit-background-clip: text;
     -webkit-text-stroke: 4px transparent;
+    @include respond(phone){
+        font-size: 6.5rem;
+        color: rgba(255, 255, 255, 0.651);
+      }
 }
 
 
