@@ -52,9 +52,41 @@
   animation: color-change 2.5s infinite; 
  
 }
+#player{
+  height: 80vh;
+}
+.end-playlist{
+ text-align: center;
+ margin-top: 2rem;
+ display: none;
+}
 
 #next:focus,
 #get-volume:focus {
   transform: none;
   animation: none;
+}
+.no-song{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.song-title{
+  font-size: 3rem;
+  margin: 0;
+}
+.sung-by{
+  width: 100%;
+  text-align: center
+}
+.warn{
+  margin-top: 1rem;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
