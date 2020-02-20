@@ -1,10 +1,14 @@
 export class YtSearch {
+  constructor() {
+    this.errorMessage;
+  }
   async getSongByTitle(song) {
     try {
       let response = await fetch(
         `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${song} karaoke&type=video&videoEmbeddable=true&key=AIzaSyCqqGCYK2fd9-paR8We9R99Mb_k7KdGHHI`
       );
       if (response.status != 200) {
+        this.errorMessage = response.status;
         return false;
       }
       let makeJson = await response.json();

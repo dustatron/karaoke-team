@@ -134,7 +134,11 @@ $(document).ready(function() {
     (async () => {
       const response = await ytSearch.getSongByTitle(ytSearchInput);
       searchObj = response;
-      if (response.items.length > 0) {
+      if (!response) {
+        $(".search-results").html(
+          `<p class="text-center">Your search returned an error status of ${ytSearch.errorMessage}</p>`
+        );
+      } else if (response.items.length > 0) {
         render.ytSearch(searchObj); //Print to Dom
       } else {
         $(".search-results").html("no results");
@@ -284,12 +288,11 @@ $(document).ready(function() {
   // print Playlist
   dbRooms.doc(currentRoom).collection("playlist").orderBy("order").onSnapshot((querySnapshot) => {
     render.playlist(querySnapshot);
-    if(render.listObj.length == 0){
+    if (render.listObj.length == 0) {
       $(".playlist-render").append(`<p> you have no more songs in your playlist </p>`);
     }
-    dbRooms.doc(currentRoom).get().then(docs => {
-
-      $('.room-name').html(docs.data().roomName);
+    dbRooms.doc(currentRoom).get().then((docs) => {
+      $(".room-name").html(docs.data().roomName);
     });
   });
 
