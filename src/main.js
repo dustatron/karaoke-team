@@ -276,10 +276,13 @@ $(document).ready(function() {
   // print Playlist
   dbRooms.doc(currentRoom).collection("playlist").orderBy("order").onSnapshot((querySnapshot) => {
     render.playlist(querySnapshot);
-    console.log(render.listObj);
     if(render.listObj.length == 0){
       $(".playlist-render").append(`<p> you have no more songs in your playlist </p>`);
     }
+    dbRooms.doc(currentRoom).get().then(docs => {
+
+      $('.room-name').html(docs.data().roomName);
+    });
   });
 
   // }
