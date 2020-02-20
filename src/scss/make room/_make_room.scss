@@ -116,7 +116,13 @@ display: flex;
 flex-flow: row;
 width: 100%;
 justify-content: center;
-align-content: center
+align-content: center;
+@include respond(tab-land ){
+  flex-flow: row wrap;
+}
+@include respond(tab-port ){
+  flex-flow: row ;
+}
 
 }
 
@@ -129,6 +135,9 @@ align-content: center
   color: white;
   @include respond(phone){
     margin:  .1rem;
+  }
+  @include respond(tab-land ){
+    margin:  .5rem;
   }
 }
 @keyframes color-change{
@@ -162,6 +171,7 @@ align-content: center
   outline: none;
   border: none;
   color: #0590ff;
+  width: 50%;
   border-bottom: solid #0590ff 2px;
   animation: border-bottom-change 10s infinite;
   padding:.1rem;

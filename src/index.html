@@ -81,20 +81,23 @@
     <!-- login view -->
     <div class="container">
       <div class="row">
-        <div class="col-md-6 offset-md-3">
-          <div class="login" style="display: none">
-            <h1>KaraOkay</h1>
-            <p>So you don't embarrass yourself in public.</p>
-            <img class='logo' src="./imges/mic.svg" alt="microphone">
+
+          <div class="login">
+            <h2><span><img class='logo' src="./imges/mic.svg" alt="microphone"></span>Lyrickle</h2>
+            <!-- <h1>singm</h1> -->
+            
             <div>
-              <div id="firebaseui-auth-container"></div>
+              <div class="loading-image text-center">
+
+                <img src="./imges/loading.gif" alt="">
+              </div>
+              <div id="firebaseui-auth-container">
+              </div>
             </div>
             <div class="current-song"></div>
           </div>
           <div class="push"></div>
-        </div>
       </div>
-    </div>
 
   </div>
   </div>
@@ -105,8 +108,6 @@
     </div>
   </footer>
 </body>
-
-
 
 
 <i style="display: none">

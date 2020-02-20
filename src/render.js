@@ -70,6 +70,9 @@ export class Render {
         </div>
         </div>
         `;
+
+        // for (let i = rooms.length -1; i >= 0; i--){
+
     rooms.forEach((item) => {
       printString += `
         <div class="room">
@@ -96,7 +99,9 @@ export class Render {
 
   updateCurrentSong() {
     this.currentSong = this.listObj[0];
-    $(".current-song").html(`<div>${this.currentSong.videoName}</div><div>${this.currentSong.user}</div>`);
+    $(".current-song").html(`
+    <div><h3 class="song-title">${this.currentSong.videoName}</h3></div>
+    <div class="sung-by"><p><strong>Sung by: </strong>${this.currentSong.user}</p></div>`);
   }
 
 }
