@@ -48,9 +48,11 @@ function getView() {
   let roomId = window.location.search.substring(2);
 
   if (view === "0" || !view) {
+
     //Main room
     $(".show-screen").hide();
     $(".playlist").hide();
+    $(".login").hide();
   } else if (view === "1") {
     //playlist
     $(".room-view").hide();
@@ -80,9 +82,9 @@ $(document).ready(function() {
   //////////////////////   Login Auth  ////////////////////////////
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      getView();
       let userID = firebase.auth().currentUser.uid;
       $(".site").show();
+      getView();
       showRooms(userID);
     } else {
       let link = "";
@@ -90,6 +92,8 @@ $(document).ready(function() {
         link = `?${thisView}${currentRoom}`;
       }
       $(".login").show();
+
+
       loginUI.start("#firebaseui-auth-container", {
         signInSuccessUrl: link,
         signInOptions: [
@@ -103,10 +107,21 @@ $(document).ready(function() {
         privacyPolicyUrl: "#"
       });
     }
+    if(!$('.firebaseui-card-content li').length){
+      $('.loading-image').show();
+      $('#firebaseui-auth-container').hide();
+    }
+    
   });
 
   /////////////////////////////////////////////////////////////////
   //////////////////////   Listeners  ////////////////////////////
+
+  //Login button for load animation
+  $("#firebaseui-auth-container").on('click', function(){
+    console.log('click');
+    $('.loading-image').show();
+  });
 
   // Add new room button
   $(".rooms").on("click", "#room-name-btn", function(event) {
