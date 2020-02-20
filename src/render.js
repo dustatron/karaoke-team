@@ -74,6 +74,9 @@ export class Render {
         </div>
         </div>
         `;
+
+        // for (let i = rooms.length -1; i >= 0; i--){
+
     rooms.forEach((item) => {
       printString += `
                 <div class="room">

@@ -292,7 +292,7 @@ $(document).ready(function() {
 
   // print room list
   function showRooms(uid) {
-    dbRooms.where("userId", "==", uid).orderBy("timeCreated").onSnapshot(function(querySnapshot) {
+    dbRooms.where("userId", "==", uid).orderBy("timeCreated","desc").onSnapshot(function(querySnapshot) {
       render.roomList(querySnapshot);
     });
   }
