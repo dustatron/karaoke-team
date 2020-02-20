@@ -98,29 +98,8 @@ export class Render {
     this.listObj = [];
   }
 
-  roomListListen() {
-    $(".rooms--list").on("click", ".copy-to-clipboard", function() {
-      let nameValue = this.name;
-      let copyInput = document.getElementById(`${nameValue}-input`);
-      copyInput.select();
-      copyInput.setSelectionRange(0, 99999);
-      document.execCommand("copy");
-    });
-
-    $(".rooms--list").on("click", ".show-main-show", function() {
-      console.log("click");
-    });
-
-    $(".rooms--list").on("click", ".show-invite", function() {
-      let valueOfButton = this.value;
-      $(`#share-link-${valueOfButton}`).slideToggle();
-    });
-  }
-
   updateCurrentSong() {
     this.currentSong = this.listObj[0];
-    console.log("render.currentSong.videoName", this.currentSong.videoName);
-    console.log("render.currentSong.user", this.currentSong.user);
     $(".current-song").html(`<div>${this.currentSong.videoName}</div><div>${this.currentSong.user}</div>`);
   }
 }

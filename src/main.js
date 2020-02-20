@@ -51,22 +51,21 @@ function getView() {
     //Main room
     $(".show-screen").hide();
     $(".playlist").hide();
-    console.log("render dashboard", view);
   } else if (view === "1") {
+    //playlist
     $(".room-view").hide();
     $(".playlist").fadeIn();
     $(".show-screen").hide();
     $(".login").hide();
-
-    console.log("render playlist", view);
   } else if (view === "2") {
+    //show
+    const yt = new YT(); //start youtube player object
     $(".room-view").hide();
     $(".playlist").hide();
     $(".show-screen").fadeIn();
     $(".login").hide();
-    console.log("render show", view);
   } else {
-    console.log("no room param", view);
+    console.error("no room param", view);
   }
 
   return roomId;
@@ -235,7 +234,6 @@ $(document).ready(function() {
 
   //---Playlist move song up
   $(".playlist-render").on("click", ".moveUp", function() {
-    let aboveObj = this.value - 1;
     let that = this;
     if (parseInt(this.value) > 1) {
       (async () => {
@@ -280,11 +278,7 @@ $(document).ready(function() {
     })();
   });
 
-  //-------------------  DOM PRINTS ------------------\\
-
-  // function DomPrintPlaylist(room) {
-  console.log("dom", currentRoom);
-
+  //------------------- RENDER TO DOM ------------------\\
   // print Playlist
   dbRooms.doc(currentRoom).collection("playlist").orderBy("order").onSnapshot((querySnapshot) => {
     render.playlist(querySnapshot);
@@ -296,26 +290,19 @@ $(document).ready(function() {
     });
   });
 
-  // }
-
   // print room list
   function showRooms(uid) {
     dbRooms.where("userId", "==", uid).orderBy("timeCreated").onSnapshot(function(querySnapshot) {
-      let printList = "";
-      querySnapshot.forEach(function(room) {
-        printList += `<li> ${room.data().roomName} </li>`;
-      });
       render.roomList(querySnapshot);
-
-      // $(".rooms--list").html(printList);
     });
   }
+}); //End document ready
+///////////////////////////////////////////////////////////////
+////////////////// Video Players  ////////////////////////////
 
-  ///////////////////////////////////////////////////////////////
-  ////////////////// Video Players  ////////////////////////////
-
-  /////////////// Show Page ///////////////
-
+/////////////// Show Page ///////////////
+function YT() {
+  this.isPlaying = false;
   // Player //
   let player = YouTubePlayer("player", {
     controls: 0,
@@ -323,28 +310,10 @@ $(document).ready(function() {
   });
 
   player.loadVideoById("Gvzu8TNCpmo");
-  let isPlaying = false;
 
   // PLAY BUTTON NOT WORKING CORRECTLY
   $("#play").click(() => {
     player.playVideo();
-
-    dbRooms.doc(currentRoom).get().then((doc) => {
-      if (doc.exists) {
-        changeState();
-      }
-    });
-
-    if (!playState) {
-      advanceSong();
-      dbRooms.doc(currentRoom).update({ playing: true });
-    } else if (playState && !isPlaying) {
-      player.playVideo();
-      isPlaying = true;
-    } else if (playState && isPlaying) {
-      player.pauseVideo();
-      isPlaying = false;
-    }
   });
 
   $("#pause").click(() => {
@@ -365,12 +334,12 @@ $(document).ready(function() {
     let playlist = render.listObj;
     if (playlist.length == 0) {
       player.loadVideoById("G2Wm5aZC1BQ");
+      $(".current-song").html(`<p class="text-center">Play list has ended</p>`);
+    } else {
+      render.updateCurrentSong();
+      dbRooms.doc(currentRoom).collection("playlist").doc(render.listObj[0].docId).delete().then(() => {
+        player.loadVideoById(render.currentSong.videoLink);
+      });
     }
-
-    render.updateCurrentSong();
-
-    dbRooms.doc(currentRoom).collection("playlist").doc(render.listObj[0].docId).delete().then(() => {
-      player.loadVideoById(render.currentSong.videoLink);
-    });
   }
-}); //End document ready
+}
