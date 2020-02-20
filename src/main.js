@@ -56,11 +56,14 @@ function getView() {
     $(".room-view").hide();
     $(".playlist").fadeIn();
     $(".show-screen").hide();
+    $(".login").hide();
+
     console.log("render playlist", view);
   } else if (view === "2") {
     $(".room-view").hide();
     $(".playlist").hide();
     $(".show-screen").fadeIn();
+    $(".login").hide();
     console.log("render show", view);
   } else {
     console.log("no room param", view);
@@ -83,9 +86,13 @@ $(document).ready(function() {
       $(".site").show();
       showRooms(userID);
     } else {
+      let link = "";
+      if (thisView === 1) {
+        link = `?${thisView}${currentRoom}`;
+      }
       $(".login").show();
       loginUI.start("#firebaseui-auth-container", {
-        signInSuccessUrl: "?0",
+        signInSuccessUrl: link,
         signInOptions: [
           // List of OAuth providers supported.
           firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -138,6 +145,7 @@ $(document).ready(function() {
   // ----------- Logout ---------- \\
   $(".logout").click(() => {
     firebase.auth().signOut();
+    window.location.href = `../`;
   });
 
   ///////////////////////////////////////////////////////////

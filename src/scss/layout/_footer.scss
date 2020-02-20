@@ -17,6 +17,12 @@
 .logout {
   padding-left: 10px;
   font-weight: 500;
+  cursor: pointer;
+  transition: all .3s;
+
+  :hover {
+    transform: scale(1.5);
+  }
 }
 
 .home {
