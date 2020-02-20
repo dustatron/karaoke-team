@@ -328,6 +328,9 @@ $(document).ready(function() {
 ////////////////// Video Players  ////////////////////////////
 
 /////////////// Show Page ///////////////
+
+
+// Load the current video
 function YT() {
   this.isPlaying = false;
   // Player //
@@ -335,11 +338,17 @@ function YT() {
     controls: 0,
     modestbranding: 1
   });
-
-  
   player.loadVideoById("Gvzu8TNCpmo");
 
-  // PLAY BUTTON NOT WORKING CORRECTLY
+  // Start the show
+  $("#start").click(() => {
+    advanceSong();
+    $("#start").addClass("hidden");
+    $(".shuttle-button").removeClass("hidden");
+    player.playVideo();
+  });
+
+  // Enable shuttle controls
   $("#play").click(() => {
     player.playVideo();
   });
@@ -357,6 +366,8 @@ function YT() {
       advanceSong();
     }
   });
+
+  // Load next song
   function advanceSong() {
     // if playlist is empty, play end song
     let playlist = render.listObj;
