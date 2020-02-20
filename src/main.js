@@ -143,6 +143,8 @@ $(document).ready(function() {
         $(".search-results").html("no results");
       }
     })();
+    $("#ytSearchInput").val("");
+
   }); //end search submit
 
   // ----------- Logout ---------- \\
