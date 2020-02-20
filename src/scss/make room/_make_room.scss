@@ -1,12 +1,17 @@
+@import "./abstracts/mixins";
 h3{
     text-align: center;
     font-size: 5rem;
     font-family: 'Raleway', sans-serif;
-    color: #272526 ;
+    color: rgba(255, 255, 255, 0.521);
     margin-bottom: 5rem;
     background: -webkit-linear-gradient(-86deg, #8046E5 0%, #0590ff 55%, #FD4A8D 95%);
     -webkit-background-clip: text;
     -webkit-text-stroke: 4px transparent;
+    @include respond(phone){
+      font-size: 3rem;
+      margin-bottom: 2rem;
+    }
 }
 
 // #submitBtn{
@@ -91,16 +96,24 @@ flex-direction: column;
 justify-content: center;
 align-items: center;
 border-radius: 1rem;
+@include respond(phone){
+  width:30%;
+  padding: .2rem;
+}
+@include respond(tab-port){
+  width:100%;
+  padding: .2rem;
+}
 }
 .room h4{
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   margin: .5rem 0 .5rem 0;
 
 }
 
 .room-btns{
 display: flex;
-flex-flow: row wrap;
+flex-flow: row;
 width: 100%;
 justify-content: center;
 align-content: center
@@ -108,12 +121,15 @@ align-content: center
 }
 
 .rooms button {
- width: 30%;
+  width: 30%;
   border: none;
   background: none;
   margin:  1rem;
   transition: all linear .2s;
-  color: white
+  color: white;
+  @include respond(phone){
+    margin:  .1rem;
+  }
 }
 @keyframes color-change{
   0% { color: rgb(128, 70, 229) }
@@ -162,7 +178,12 @@ align-content: center
   height: 100%;
   border: none;
   margin: 0;
-padding: 0;
+  padding: 0;
+ @include respond(tab-port){
+  width:100%;
+  padding: 1rem;
+  height: auto
+}
 }
 .module-add-wrap {
   border-radius: 1rem;
@@ -171,20 +192,24 @@ padding: 0;
   background:  -webkit-linear-gradient(0deg, rgba(128, 70, 229, 0.281) 0%, #058fff59 55%, rgba(253, 74, 140, 0.329) 95%);
   padding: .3rem;
   margin: 1rem;
-}
-@keyframes flash{
-  0% { background: -webkit-linear-gradient(0deg, rgb(128, 70, 229) 0%, #058fff 55%, rgb(253, 74, 140) 95%) ; }
-  33% { background: -webkit-linear-gradient(0deg, rgb(253, 74, 140) 0%, rgb(128, 70, 229) 55%, #058fff 95%); }
-  67% { background: -webkit-linear-gradient(0deg, #058fff  0%, rgb(253, 74, 140) 55%, rgb(128, 70, 229)  95%) ; }
-  100% { background: -webkit-linear-gradient(0deg, rgb(128, 70, 229) 0%, #058fff 55%, rgb(253, 74, 140) 95%) ; }
+  @include respond(phone){
+    width:100%;
+    height: auto
+  }
+  @include respond(tab-port){
+    width:100%;
+    height: auto
+  }
 }
 
+
 .rooms input::placeholder{
-  background: -webkit-linear-gradient(0deg, rgb(253, 74, 140) 0%, rgb(128, 70, 229) 55%, #058fff 95%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: flash .5s infinite;
+  animation: color-change 5s linear infinite ;
+  transition: all linear 10s;
 }
 .add-btn{
+  font-size: 2.5rem;
+}
+.add-btn:hover{
   font-size: 2.5rem;
 }
