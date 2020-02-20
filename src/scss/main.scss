@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Akronim|Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Akronim|Raleway|Josefin+Sans|Work+Sans&display=swap');
 @import '~bootstrap';
 @import "vendor/firebaseui.scss";
 
@@ -20,5 +20,6 @@
 @import 'playlist/playlist';
 @import 'playback/playback';
 body{
-    color: rgba(255, 255, 255, 0.671)
+    color: rgba(255, 255, 255, 0.671);
+    font-family: 'Josefin Sans'
 }

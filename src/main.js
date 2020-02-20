@@ -158,6 +158,8 @@ $(document).ready(function() {
         $(".search-results").html("no results");
       }
     })();
+    $("#ytSearchInput").val("");
+
   }); //end search submit
 
   // ----------- Logout ---------- \\
@@ -324,6 +326,7 @@ function YT() {
     modestbranding: 1
   });
 
+  
   player.loadVideoById("Gvzu8TNCpmo");
 
   // PLAY BUTTON NOT WORKING CORRECTLY
