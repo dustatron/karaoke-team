@@ -148,8 +148,9 @@ $(document).ready(function() {
       });
       const response = await ytSearch.getSongByTitle(ytSearchInput);
       searchObj = response;
+      //check for status 400, cycle youtube api keys.
       if (!response) {
-        if (ytSearch.currentKey < ytSearch.keys.length - 1) {
+        if (ytSearch.currentKey < ytSearch.keys.length) {
           ytSearch.currentKey += 1;
         } else {
           $(".search-results").html(
