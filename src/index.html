@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
- <link rel="icon" href="../favicon.ico">
+  <link rel="icon" href="../favicon.ico">
   <!-- Place your kit's code here -->
   <script src="https://kit.fontawesome.com/6a64d8de6b.js" crossorigin="anonymous"></script>
 
@@ -25,7 +25,7 @@
           </div>
         </div>
       </div>
-
+      <!-- ---------------------- PLAYLIST VIEW --------------------  -->
       <div class="container playlist">
         <div class="row">
           <div class="col-md-6 offset-md-3">
@@ -52,24 +52,24 @@
         </div>
       </div>
 
-      <!--Show View -->
+      <!-- ------------------ SHOW VIEW -------------------------- -->
       <div class="container-fluid show-screen">
         <div class="row">
-          <div class="col-md-8">
-            <div class="">
-              <div id="player"></div>
-              <div class="play-backBtns">
-                <button id="start">Start</button>
-                <button id="play" class="hidden shuttle-button"><i class="fas fa-play"></i></button>
-                <button id="pause" class="hidden shuttle-button"><i class="fas fa-pause"></i></button>
-                <button id="next" class="hidden shuttle-button"><i class="fas fa-step-forward"></i></button>
-                <div style="display: none" class="playlist-render"></div>
-              </div>
-              <div class="current-song"></div>
+          <div class="col-md-9">
+            <div id="player">
+              <!-- render player here  -->
             </div>
+            <div class="play-backBtns">
+              <button id="start">Start</button>
+              <button id="play" class="hidden shuttle-button"><i class="fas fa-play"></i></button>
+              <button id="pause" class="hidden shuttle-button"><i class="fas fa-pause"></i></button>
+              <button id="next" class="hidden shuttle-button"><i class="fas fa-step-forward"></i></button>
+              <div style="display: none" class="playlist-render"></div>
+            </div>
+            <div class="current-song"></div>
           </div>
           <!--Show / Playlist -->
-          <div class="col-md-3">
+          <div class="col-md-3 playlist-col">
             <div class="playlist-render">
               <!-- Render Playlist-->
             </div>
@@ -82,26 +82,26 @@
     <div class="container">
       <div class="row">
 
-          <div class="login">
-            <h2><span><img class='logo' src="./imges/mic.svg" alt="microphone"></span>Lyrickle</h2>
-            <!-- <h1>singm</h1> -->
-            
-            <div>
-              <div class="loading-image text-center">
-                <div class="spinner-border" style="width: 4rem; height: 4rem;" role="status">
-                  <span class="sr-only">Loading...</span>
-                </div>
-                <!-- <img src="https://media.giphy.com/media/Ky5cCRglayIDWn4sFE/giphy.mp4" alt=""> -->
+        <div class="login">
+          <h2><span><img class='logo' src="./imges/mic.svg" alt="microphone"></span>Lyrickle</h2>
+          <!-- <h1>singm</h1> -->
+
+          <div>
+            <div class="loading-image text-center">
+              <div class="spinner-border" style="width: 4rem; height: 4rem;" role="status">
+                <span class="sr-only">Loading...</span>
               </div>
-              <div id="firebaseui-auth-container">
-              </div>
+              <!-- <img src="https://media.giphy.com/media/Ky5cCRglayIDWn4sFE/giphy.mp4" alt=""> -->
             </div>
-            <div class="current-song"></div>
+            <div id="firebaseui-auth-container">
+            </div>
           </div>
-          <div class="push"></div>
+          <div class="current-song"></div>
+        </div>
+        <div class="push"></div>
       </div>
 
-  </div>
+    </div>
   </div>
   <footer class="footer">
     <div class="container text-center">

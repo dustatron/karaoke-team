@@ -8,8 +8,8 @@ import $ from "jquery";
 import { YtSearch } from "./youtube-search-service";
 import { Render } from "./render";
 import YouTubePlayer from "youtube-player";
-import microphoneImage from './imges/mic.svg';
-import warning from './imges/alert.svg'
+import microphoneImage from "./imges/mic.svg";
+import warning from "./imges/alert.svg";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC-YzJrwqc7dqtxy1dGAMvAvymJ-ZF1F3M",
@@ -32,10 +32,8 @@ if (!firebase.apps.length) {
 
 // setting ref to database
 const db = firebase.firestore();
-// const dbTest = db.collection("test");
-// const dbTestRoom = db.collection("rooms").doc("testroom");
 const dbRooms = db.collection("rooms");
-
+const appData = db.collection("appData");
 const render = new Render();
 
 // firebase Auth
@@ -50,7 +48,6 @@ function getView() {
   let roomId = window.location.search.substring(2);
 
   if (view === "0" || !view) {
-
     //Main room
     $(".show-screen").hide();
     $(".playlist").hide();
@@ -95,7 +92,6 @@ $(document).ready(function() {
       }
       $(".login").show();
 
-
       loginUI.start("#firebaseui-auth-container", {
         signInSuccessUrl: link,
         signInOptions: [
@@ -109,20 +105,19 @@ $(document).ready(function() {
         privacyPolicyUrl: "#"
       });
     }
-    if(!$('.firebaseui-card-content li').length){
-      $('.loading-image').show();
-      $('#firebaseui-auth-container').hide();
+    if (!$(".firebaseui-card-content li").length) {
+      $(".loading-image").show();
+      $("#firebaseui-auth-container").hide();
     }
-    
   });
 
   /////////////////////////////////////////////////////////////////
   //////////////////////   Listeners  ////////////////////////////
 
   //Login button for load animation
-  $("#firebaseui-auth-container").on('click', function(){
-    console.log('click');
-    $('.loading-image').show();
+  $("#firebaseui-auth-container").on("click", function() {
+    console.log("click");
+    $(".loading-image").show();
   });
 
   // Add new room button
@@ -145,15 +140,22 @@ $(document).ready(function() {
     event.preventDefault();
     let render = new Render();
     let ytSearchInput = $("#ytSearchInput").val();
-    $(".search-results").slideDown();
+    $(".search-results").slideDown("slow");
 
     (async () => {
+      await appData.doc("keys").get().then((docs) => {
+        ytSearch.keys = docs.data().apiKeys;
+      });
       const response = await ytSearch.getSongByTitle(ytSearchInput);
       searchObj = response;
       if (!response) {
-        $(".search-results").html(
-          `<p class="text-center">Your search returned an error status of ${ytSearch.errorMessage}</p>`
-        );
+        if (ytSearch.currentKey < ytSearch.keys.length - 1) {
+          ytSearch.currentKey += 1;
+        } else {
+          $(".search-results").html(
+            `<p class="text-center">Your search returned an error status of ${ytSearch.errorMessage}</p>`
+          );
+        }
       } else if (response.items.length > 0) {
         render.ytSearch(searchObj); //Print to Dom
       } else {
@@ -164,7 +166,6 @@ $(document).ready(function() {
       }
     })();
     $("#ytSearchInput").val("");
-
   }); //end search submit
 
   // ----------- Logout ---------- \\
@@ -319,7 +320,7 @@ $(document).ready(function() {
 
   // print room list
   function showRooms(uid) {
-    dbRooms.where("userId", "==", uid).orderBy("timeCreated","desc").onSnapshot(function(querySnapshot) {
+    dbRooms.where("userId", "==", uid).orderBy("timeCreated", "desc").onSnapshot(function(querySnapshot) {
       render.roomList(querySnapshot);
     });
   }
@@ -328,7 +329,6 @@ $(document).ready(function() {
 ////////////////// Video Players  ////////////////////////////
 
 /////////////// Show Page ///////////////
-
 
 // Load the current video
 function YT() {

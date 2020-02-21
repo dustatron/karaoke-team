@@ -1,10 +1,17 @@
-.playlist-render {
-  margin-bottom: 150px;
+.playlist-col {
+  padding-left: 0;
+  .playlist-render {
+    margin-bottom: 150px;
+    @include respond(tab-land) {
+      margin-top: 1rem;
+    }
+  }
 }
+
 .show-screen {
   width: 100vw;
   height: 100vh;
-  padding: 2rem;
+  padding: 1rem;
   margin: 0;
 }
 .play-backBtns {
@@ -52,16 +59,15 @@
   outline: none;
   border-bottom: none;
   background: none;
-  animation: color-change 2.5s infinite; 
- 
+  animation: color-change 2.5s infinite;
 }
-#player{
+#player {
   height: 80vh;
 }
-.end-playlist{
- text-align: center;
- margin-top: 2rem;
- display: none;
+.end-playlist {
+  text-align: center;
+  margin-top: 2rem;
+  display: none;
 }
 
 #next:focus,
@@ -69,7 +75,7 @@
   transform: none;
   animation: none;
 }
-.no-song{
+.no-song {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -77,15 +83,15 @@
   align-items: center;
   text-align: center;
 }
-.song-title{
+.song-title {
   font-size: 3rem;
-  margin: 0;
+  margin: 1.5rem 0;
 }
-.sung-by{
+.sung-by {
   width: 100%;
-  text-align: center
+  text-align: center;
 }
-.warn{
+.warn {
   margin-top: 1rem;
   width: 100%;
   flex-direction: column;

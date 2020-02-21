@@ -1,5 +1,6 @@
 .search-form {
   margin-top: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .room-name {
@@ -14,6 +15,16 @@
   border: none;
   color: #0590ff;
   padding-left: 1rem;
+}
+
+.search-results {
+  padding: 5px;
+  margin-bottom: 1.5rem;
+  border-radius: 7px 7px 0 0;
+  -webkit-box-shadow: inset 0px -1px 13px 6px rgba(0, 0, 0, .1);
+  -moz-box-shadow: inset 0px -1px 13px 6px rgba(0, 0, 0, .1);
+  box-shadow: inset 0px -1px 13px 6px rgba(0, 0, 0, .1);
+  border-bottom: 2px solid rgba(253, 74, 140, 0.329);
 }
 
 .search-button {
@@ -51,34 +62,33 @@
   background: -webkit-linear-gradient(0deg, rgba(128, 70, 229, 0.281) 0%, #058fff59 55%, rgba(253, 74, 140, 0.329) 95%);
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  margin: 2rem 0;
-  border-radius: 1rem;
-  height: 20vh;
-}
+  padding: .5rem 1rem;
+  margin-bottom: .5rem;
+  border-radius: 7px;
+  min-height: 5.5rem;
 
-.playlist-box {
-  display: flex;
-  background: -webkit-linear-gradient(0deg, rgba(128, 70, 229, 0.281) 0%, #058fff59 55%, rgba(253, 74, 140, 0.329) 95%);
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  margin: 2rem 0;
-  border-radius: 1rem;
-  height: 20vh;
-}
+  img {
+    object-fit: cover;
+    height: 80%;
+    width: 20%;
+  }
 
-.playlist-box img {
-  object-fit: cover;
-  height: 80%;
-  width: 30%;
-}
+  .info-container {
+    height: 80%;
+    width: 100%;
+    font-size: 1rem;
+    padding: 0 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-.info-container {
-  height: 80%;
-  width: 60%;
-  font-size: .5rem;
-  padding: 0 1rem;
+  .playlist-user {
+    font-size: .8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .playlist-buttons {
@@ -109,15 +119,20 @@
   border-radius: 1rem;
 }
 
-.ytSong img{
-  width: 80%
-}
-
 .ytSong-info {
-  height: 80%;
-  width: 60%;
-  font-size: .5rem;
+  height: 100%;
+  width: 99%;
+  margin: 1.5rem 0;
+  font-size: 1rem;
   padding: 0 1rem;
+
+  // white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  .ytSong img {
+    width: 80%;
+  }
 }
 
 .result-button-wrap {
@@ -125,13 +140,13 @@
   width: 100%;
   height: 20%;
   position: relative;
-  @include respond(phone){
-    width:100%;
-    height: auto
+  @include respond(phone) {
+    width: 100%;
+    height: auto;
   }
-  @include respond(tab-port){
-    width:100%;
-    height: auto
+  @include respond(tab-port) {
+    width: 100%;
+    height: auto;
   }
 }
 

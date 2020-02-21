@@ -44,7 +44,7 @@ export class Render {
                 <img src="${item.data().img}">
                 <div class="info-container"
                 <p class ="playlist-title"> ${item.data().videoName} </p>
-                <p class="playlist-user">To be sung by: ${item.data().user} </p>
+                <p class="playlist-user">Singer: ${item.data().user} </p>
                 </div>
                 <div class="playlist-buttons">
                     <button class="delete" name="${item.id}"><i class="fas fa-trash"></i></button>
@@ -62,16 +62,15 @@ export class Render {
     let printString = "";
     let formString = `
         <div class='module-add-wrap' >
-        <div class='room add'>
-          <form class='room-btns'>
-          <input id="room-name" aria-describedby="input" class='room-add' type="text" placeholder="New Room" autofocus required>
-          <button id="room-name-btn"  type="submit"><i class="add-btn fas fa-plus"></i></button>
-        </form>
-        </div>
-        </div>
-        `;
+          <div class='room add'>
+            <form class='room-btns'>
+              <input id="room-name" aria-describedby="input" class='room-add' type="text" placeholder="New Room" autofocus required>
+              <button id="room-name-btn" type="submit"><i class="add-btn fas fa-plus"></i></button>
+            </form>
+          </div>
+        </div>`;
 
-        // for (let i = rooms.length -1; i >= 0; i--){
+    // for (let i = rooms.length -1; i >= 0; i--){
 
     rooms.forEach((item) => {
       printString += `
@@ -84,7 +83,7 @@ export class Render {
             <button class="show-delete" value="${item.id}"><i class="fas fa-trash"></i></button>
         </div>
         <div id="share-link-${item.id}" class='share-link-cont' style="display:none;">
-            <input read id="${item.id}-input" type="text" value="https://karaoke-team.web.app/?1${item.id}"> 
+            <input read id="${item.id}-input" type="text" class="copy-to-clipboard-input" value="https://karaoke-team.web.app/?1${item.id}"> 
             <button name="${item.id}" class="copy-to-clipboard"> <i class="fas fa-link"></i></button>
         </div>
         </div>
@@ -103,5 +102,4 @@ export class Render {
     <div><h3 class="song-title">${this.currentSong.videoName}</h3></div>
     <div class="sung-by"><p><strong>Sung by: </strong>${this.currentSong.user}</p></div>`);
   }
-
 }

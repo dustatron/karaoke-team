@@ -1,11 +1,15 @@
 export class YtSearch {
   constructor() {
     this.errorMessage;
+    this.keys = [];
+    this.currentKey = 0;
   }
   async getSongByTitle(song) {
     try {
+      console.log("keys", this.keys);
       let response = await fetch(
-        `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${song} karaoke&type=video&videoEmbeddable=true&key=AIzaSyCqqGCYK2fd9-paR8We9R99Mb_k7KdGHHI`
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${song} karaoke&type=video&videoEmbeddable=true&key=${this
+          .keys[this.currentKey]}`
       );
       if (response.status != 200) {
         this.errorMessage = response.status;
