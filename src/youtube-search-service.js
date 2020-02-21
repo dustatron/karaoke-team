@@ -6,7 +6,6 @@ export class YtSearch {
   }
   async getSongByTitle(song) {
     try {
-      console.log("keys", this.keys);
       let response = await fetch(
         `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${song} karaoke&type=video&videoEmbeddable=true&key=${this
           .keys[this.currentKey]}`

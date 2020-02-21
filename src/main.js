@@ -142,16 +142,19 @@ $(document).ready(function() {
     let ytSearchInput = $("#ytSearchInput").val();
     $(".search-results").slideDown("slow");
 
-    (async () => {
+    async function ytSearchNow() {
       await appData.doc("keys").get().then((docs) => {
         ytSearch.keys = docs.data().apiKeys;
       });
-      const response = await ytSearch.getSongByTitle(ytSearchInput);
+      let response = await ytSearch.getSongByTitle(ytSearchInput);
       searchObj = response;
       //check for status 400, cycle youtube api keys.
       if (!response) {
         if (ytSearch.currentKey < ytSearch.keys.length) {
           ytSearch.currentKey += 1;
+          response = await ytSearch.getSongByTitle(ytSearchInput);
+          searchObj = response;
+          ytSearchNow();
         } else {
           $(".search-results").html(
             `<p class="text-center">Your search returned an error status of ${ytSearch.errorMessage}</p>`
@@ -165,7 +168,8 @@ $(document).ready(function() {
         <p>No Results</p>
         </div>`);
       }
-    })();
+    }
+    ytSearchNow();
     $("#ytSearchInput").val("");
   }); //end search submit
 
