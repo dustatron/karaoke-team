@@ -5,7 +5,7 @@ h3 {
 
   font-family: 'Josefin Sans', sans-serif;
   color: rgba(255, 255, 255, 0.521);
-  margin-bottom: 5rem;
+  margin-bottom: 2rem;
   background: -webkit-linear-gradient(-86deg, #8046e5 0%, #0590ff 55%, #fd4a8d 95%);
   -webkit-background-clip: text;
   -webkit-text-stroke: 4px transparent;
@@ -89,6 +89,7 @@ h3 {
 .rooms {
   display: flex;
   flex-flow: row wrap;
+  justify-content: center;
 }
 .room {
   margin: 1rem;

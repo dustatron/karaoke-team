@@ -123,17 +123,20 @@ $(document).ready(function() {
   // Add new room button
   $(".rooms").on("click", "#room-name-btn", function(event) {
     event.preventDefault();
-    let roomObj = {
-      userId: firebase.auth().currentUser.uid,
-      userName: firebase.auth().currentUser.displayName,
-      userPhoto: firebase.auth().currentUser.photoURL,
-      roomName: $("input#room-name").val(),
-      playing: false,
-      order: 1,
-      currentSong: 0,
-      timeCreated: new Date().getTime()
-    };
-    dbRooms.add(roomObj);
+    let roomName = $("input#room-name");
+    if (roomName.val()) {
+      let roomObj = {
+        userId: firebase.auth().currentUser.uid,
+        userName: firebase.auth().currentUser.displayName,
+        userPhoto: firebase.auth().currentUser.photoURL,
+        roomName: roomName,
+        playing: false,
+        order: 1,
+        currentSong: 0,
+        timeCreated: new Date().getTime()
+      };
+      dbRooms.add(roomObj);
+    }
   });
 
   $(".search-form").submit((event) => {
