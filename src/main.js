@@ -123,13 +123,13 @@ $(document).ready(function() {
   // Add new room button
   $(".rooms").on("click", "#room-name-btn", function(event) {
     event.preventDefault();
-    let roomName = $("input#room-name");
-    if (roomName.val()) {
+    let roomNameInput = $("input#room-name");
+    if (roomNameInput.val() && roomNameInput.val().length <= 15) {
       let roomObj = {
         userId: firebase.auth().currentUser.uid,
         userName: firebase.auth().currentUser.displayName,
         userPhoto: firebase.auth().currentUser.photoURL,
-        roomName: roomName,
+        roomName: roomNameInput.val(),
         playing: false,
         order: 1,
         currentSong: 0,
